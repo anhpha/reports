@@ -1,0 +1,35 @@
+{% if total > pageSize %}
+<nav>
+  <ul class="pagination">
+  	{% if currentPage > 1  %}
+    <li>
+      <a href="{{ path('document', {'title':'page','page':(currentPage - 1)}) }}" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    {% endif %}
+    
+    {% set totalPage = (total/pageSize)|round(0,'ceil') %}
+    {% set render = display < totalPage ? display : totalPage %}
+    {% set midle = (render/2)|round() %}
+    {% for pageNumber in (currentPage-midle)..(currentPage+midle) %}
+    	{% set class = '' %}	
+        {% if pageNumber == currentPage %}
+    		{% set class = 'active' %}
+    	{% endif %}
+        {% if pageNumber > 0 and pageNumber <= totalPage %}
+        	
+        	{% set pagingParams = {'title':'page','page':pageNumber}|merge(params) %}
+    		<li class="{{ class }}"><a href="{{ path('document', pagingParams) }}">{{ pageNumber }}</a></li>
+    	{% endif %}
+    {% endfor %}
+    {% if currentPage*pageSize < total %}
+    <li>
+      <a href="{{ path('document', {'title':'page','page':(currentPage +1)}) }}" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+    {% endif %}
+  </ul>
+</nav>
+{% endif %}

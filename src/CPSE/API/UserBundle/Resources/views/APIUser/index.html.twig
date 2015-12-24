@@ -1,0 +1,96 @@
+{% extends 'CPSEAPIProjectBundle::layout.html.twig' %}
+
+
+{% set customActiveRoute = 'apiuser' %}
+{% block title %} {{ 'APIUser list'|trans({},'apiuser') }}{% endblock %}
+
+{% block page_header %}
+    				<h1>{% block page_header_title %} {{ 'APIUser list'|trans({},'apiuser') }}{% endblock %}
+    					<a class="btn btn-success" href="{{ path('apiuser_new') }}">
+                            <i class="fa fa-user-plus"></i>        
+                             {{ 'New'|trans({},'common') }}
+                        </a>
+    				</h1>
+				{% endblock %}
+ 
+
+{% block page_data %}
+
+
+<table class="table table-striped">
+    <thead>
+        <tr>			            	
+        	<th>{{'Fullname'|trans({},'apiuser') }}</th>
+        	<th>{{'Username'|trans({},'apiuser') }}</th>
+        	<th>{{'Email'|trans({},'apiuser') }}</th>
+        	<th>{{'Roles'|trans({},'apiuser') }}</th>
+        	<th>{{'Enabled'|trans({},'apiuser') }}</th>
+        	<th>{{'Locked'|trans({},'apiuser') }}</th>
+        	<th>{{'Lastlogin'|trans({},'apiuser') }}</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for document in documents %}
+        <tr>    	
+            <td>{{ document.fullName }}</td>
+            <td>{{ document.username }}</td>    	
+            <td>{{ document.email }}</td>
+            <td>
+            	{% for role in document.roles %}
+            		{{ role }}
+            	{% endfor %}
+            </td>    	
+            <td>
+            	{% if document.enabled %}
+            		<span class="label label-success">{{ 'Yes'|trans }}</span>
+            	{% else %}
+            		<span class="label label-danger">{{ 'No'|trans }}</span>
+            	{% endif %}
+            </td>    	
+            <td>
+            	{% if document.locked %}
+            		<span class="label label-danger">{{ 'Locked'|trans }}</span>
+            	{% else %}
+            		<span class="label label-primary">{{ 'No'|trans }}</span>
+            	{% endif %}
+            </td>    	
+            <td>{% if document.lastLogin %}{{ document.lastLogin|date('Y-m-d H:i:s') }}{% endif %}</td>     	
+            <td>                		
+                        <a class="btn btn-info" href="{{ path('apiuser_edit', { 'id': document.id }) }}">
+                        	                				<i class="glyphicon glyphicon-edit" aria-hidden="true"></i>
+                			                             {{ 'Edit'|trans({},'common') }}
+                        </a>
+                        <form class="delete-form" action="{{ path('apiuser_delete', { 'id': document.id }) }}" method="post">
+                               {{ form_widget(deleteForms[document.id],{'attr':{'class':'delete-form'}}) }}
+                                <button type="submit" class="btn btn-danger">
+                            	<i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
+                            	 {{ 'Delete'|trans({},'common') }}
+                            	</button>
+                            	<input type="hidden" value="{{ document.fullName }}" name="document_name">
+                            </form>
+                		
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<div><a class="btn btn-success" href="{{ path('apiuser_new') }}">
+    <i class="fa fa-user-plus"></i>        
+     {{ 'New'|trans({},'common') }}
+        </a></div>
+{% endblock %}
+{% block inlinescripts %}
+	<script type="text/javascript">
+        	$(document).ready(function(){
+        		$('.delete-form').find(':submit').click(function(e){
+        			 e.preventDefault();
+        			 var form = $(this).closest('form');
+        			 var itemName = form.find('[name="document_name"]').val();
+        			 var text = "{{ 'Are your sure to delete'|trans({},'apiuser') }}";
+        			 confirmDelete(form, text, itemName);
+        		});
+        	});
+    </script>
+{% endblock %}

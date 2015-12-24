@@ -1,0 +1,93 @@
+{% extends 'CPSEAPIProjectBundle::layout.html.twig' %}
+
+{% set customActiveRoute = 'apiuser' %}
+{% trans_default_domain 'apiuser' %}
+{% block title %} {{ 'APIUser creation'|trans({},'apiuser') }}{% endblock %}
+
+ {% block page_header_title %} {{ 'APIUser creation'|trans({},'apiuser') }}{% endblock %}
+
+{% block page_data %}
+
+<div class="col-md-12">
+    <div class="col-md-6">
+        <form action="{{ path('apiuser_create') }}" method="post" {{ form_enctype(form) }}>
+            {{ form_errors(form) }}
+            	   <div class="form-group">
+                        {% set username_label %}{{ form.username.vars.name|capitalize|trans({},'apiuser') }} {% endset %}
+                        {{ form_label(form.username,username_label) }}
+                        {{ form_widget(form.username, {'attr':{'class':'form-control'}}) }}
+                        {{ form_errors(form.username) }}
+                    </div>
+                    <div class="form-group">
+                        {% set pass_label %}{{ form.plainPassword.first.vars.label|capitalize|trans({},'apiuser') }} {% endset %}
+                        {{ form_label(form.plainPassword.first,pass_label) }}
+                        {{ form_widget(form.plainPassword.first, {'attr':{'class':'form-control'}}) }}
+                        {{ form_errors(form.plainPassword.first) }}
+                    </div>
+                    <div class="form-group">
+                        {% set repass_label %}{{ form.plainPassword.second.vars.label|capitalize|trans({},'apiuser') }} {% endset %}
+                        {{ form_label(form.plainPassword.second,repass_label) }}
+                        {{ form_widget(form.plainPassword.second, {'attr':{'class':'form-control'}}) }}
+                        {{ form_errors(form.plainPassword.second) }}
+                    </div>
+            	   <div class="form-group">
+                        {% set fullName_label %}{{ form.fullName.vars.name|capitalize|trans({},'apiuser') }} {% endset %}
+                        {{ form_label(form.fullName,fullName_label) }}
+                        {{ form_widget(form.fullName, {'attr':{'class':'form-control'}}) }}
+                        {{ form_errors(form.fullName) }}
+                    </div>
+                    
+                            	            	            		<div class="form-group">
+                        {% set email_label %}{{ form.email.vars.name|capitalize|trans({},'apiuser') }} {% endset %}
+                        {{ form_label(form.email,email_label) }}
+                        {{ form_widget(form.email, {'attr':{'class':'form-control'}}) }}
+                        {{ form_errors(form.email) }}
+                    </div>
+                    <div class="form-group">
+                        {% set roles_label %}{{ form.roles.vars.name|capitalize|trans({},'apiuser') }} {% endset %}
+                        <label>{{ roles_label }}</label>
+                    	<div class="group-controls">
+                        
+                        {% for role in form.roles.children %}
+                        <div class="checkbox">
+                        	<label for="{{ role.vars.id }}">
+                        		{{ form_widget(role) }}
+                        		{{ role.vars.label|trans }}
+                        	</label>
+                        </div>
+                        {% endfor %}
+                        </div>
+                    </div>
+                    <div class="checkbox">
+                        {% set enabled_label %}{{ form.enabled.vars.name|capitalize|trans({},'apiuser') }} {% endset %}
+                        <label for="{{ form.enabled.vars.id }}">
+                        	{{ form_widget(form.enabled) }}{{ enabled_label }}
+                        </label>
+                        {{ form_errors(form.enabled) }}
+                    </div>
+                    <div class="checkbox">
+                        {% set locked_label %}{{ form.locked.vars.name|capitalize|trans({},'apiuser') }} {% endset %}
+                        <label for="{{ form.locked.vars.id }}">
+                        	{{ form_widget(form.locked) }}{{ locked_label }}
+                        </label>
+                        
+                        {{ form_errors(form.locked,{'attr':{'class':'alert alert-danger'}}) }}
+                    </div>
+                            	            	{{ form_rest(form) }}
+            <p>
+                <button type="submit" class="btn btn-success pull-right">
+                	<i class="glyphicon glyphicon-plus" aria-hidden="true"></i>        
+                     {{ 'Add'|trans({},'common') }}
+                </button>
+            </p>
+        </form>
+    </div>
+</div>
+<div class="col-md-12 actions-list">
+</div>
+<div class="col-md-12 back-link">
+	<a href="{{ path('apiuser') }}">
+            <i class="glyphicon glyphicon-arrow-left" aria-hidden="true"></i>
+             {{ 'Back to the list'|trans({},'common') }}
+        </a>
+</div>{% endblock %}

@@ -1,0 +1,117 @@
+{% extends 'CPSEAPIProjectBundle::layout.html.twig' %}
+
+{% set customActiveRoute = 'project' %}
+{% block title %} {{ 'Project creation'|trans({},'project') }}{% endblock %}
+
+ {% block page_header_title %} {{ 'Project creation'|trans({},'project') }}{% endblock %}
+
+{% block page_data %}
+
+<div class="col-md-12">
+    <div class="col-md-6">
+        <form action="{{ path('project_create') }}" method="post" {{ form_enctype(form) }}>
+            {{ form_errors(form) }}
+            		<div class="form-group col-md-12 row">
+            			<div class="col-md-6 row">
+                        {% set category_label %}{{ form.category.vars.name|capitalize|trans({},'project') }} {% endset %}
+                        {{ form_label(form.category,category_label) }}
+                        {{ form_widget(form.category, {'attr':{'class':'form-control'}}) }}
+                        {{ form_errors(form.category) }}
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12 row">
+                        <div class="col-md-4 row">
+                            {% set project_code_label %}{{ form.project_code.vars.name|capitalize|trans({},'project') }} {% endset %}
+                            {{ form_label(form.project_code,project_code_label) }}
+                            {{ form_widget(form.project_code, {'attr':{'class':'form-control'}}) }}
+                            {{ form_errors(form.project_code) }}
+                        </div>
+                		<div class="col-md-8 row inline-control">
+                            {% set name_label %}{{ form.name.vars.name|capitalize|trans({},'project') }} {% endset %}
+                            {{ form_label(form.name,name_label) }}
+                            {{ form_widget(form.name, {'attr':{'class':'form-control'}}) }}
+                            {{ form_errors(form.name) }}
+                        </div>
+                    </div>
+                    <div class = "col-md-12 row">
+                		<div class="form-group col-md-3 col-sm-6 row">
+                            {% set start_label %}{{ form.start.vars.name|capitalize|trans({},'project') }} {% endset %}
+                            {{ form_label(form.start,start_label) }}
+                            {{ form_widget(form.start, {'attr':{'class':'form-control'}}) }}
+                            {{ form_errors(form.start) }}
+                        </div>
+                        <div class="form-group row col-md-3 col-sm-6 inline-control">
+                            {% set end_label %}{{ form.end.vars.name|capitalize|trans({},'project') }} {% endset %}
+                            {{ form_label(form.end,end_label) }}
+                            {{ form_widget(form.end, {'attr':{'class':'form-control'}}) }}
+                            {{ form_errors(form.end) }}
+                        </div>
+                    </div>        	            	            		
+                    <div class="form-group form-group col-md-12 row">
+                    	<div class="col-md-6 row">
+                            {% set pm_label %}{{ form.pm.vars.name|capitalize|trans({},'project') }} {% endset %}
+                            {{ form_label(form.pm,pm_label) }}
+                            {{ form_widget(form.pm, {'attr':{'class':'form-control'}}) }}
+                            {{ form_errors(form.pm) }}
+                        </div>
+                    </div>
+            		<div class="form-group">
+                        {% set description_label %}{{ form.description.vars.name|capitalize|trans({},'project') }} {% endset %}
+                        {{ form_label(form.description,description_label) }}
+                        {{ form_widget(form.description, {'attr':{'class':'form-control'}}) }}
+                        {{ form_errors(form.description) }}
+                    </div>
+                    <div class="form-group">
+                        {% set members_label %}{{ form.members.vars.name|capitalize|trans({},'project') }} {% endset %}
+                        {{ form_label(form.members,members_label) }}
+                        {{ form_widget(form.members, {'attr':{'class':'form-control'}}) }}
+                        {{ form_errors(form.members) }}
+                    </div>
+                   <div class="form-group form-group col-md-12 row">
+                    	<div class="col-md-4 row">
+                            {% set status_label %}{{ form.status.vars.name|capitalize|trans({},'project') }} {% endset %}
+                            {{ form_label(form.status,status_label) }}
+                            {{ form_widget(form.status, {'attr':{'class':'form-control'}}) }}
+                            {{ form_errors(form.status) }}
+                        </div>
+                    </div>
+                            	            	            		
+                            	            	{{ form_rest(form) }}
+            <p>
+                <button type="submit" class="btn btn-success pull-right">
+                	<i class="glyphicon glyphicon-edit" aria-hidden="true"></i>        
+                     {{ 'Add'|trans({},'common') }}
+                </button>
+            </p>
+        </form>
+    </div>
+</div>
+<div class="col-md-12 actions-list">
+</div>
+<div class="col-md-12 back-link">
+	<a href="{{ path('project') }}">
+            <i class="glyphicon glyphicon-arrow-left" aria-hidden="true"></i>
+             {{ 'Back to the list'|trans({},'common') }}
+        </a>
+</div>{% endblock %}
+{% block inlinescripts %}
+	{{ form_javascript(form) }}
+	<script type="text/javascript" src="{{ asset('js/combobox.js') }}"></script>
+	<script type="text/javascript">
+        $(document).ready(function(){
+            var notFoundError = "{{ 'did not match any item'|trans({}, 'project') }}";
+			$('[id$="pm"]').combobox({'notFoundError':notFoundError});
+        });
+    </script>
+    <script type="text/javascript" src="{{ asset('js/multi-autocomplete.js') }}"></script>
+	<script type="text/javascript">
+        $(document).ready(function(){
+            var notFoundError = "{{ 'did not match any item'|trans({}, 'project') }}";
+            var inputLabel = "{{ 'Add more member'|trans({}, 'project') }}";
+            var duplicatedError = "{{ 'Member has been added!'|trans({}, 'project') }}";
+			$('[id$="members"]').multi_autocomplete({'notFoundError':notFoundError,
+													'inputLabel': inputLabel,
+													'duplicatedError': duplicatedError});
+        });
+    </script>
+{% endblock %}

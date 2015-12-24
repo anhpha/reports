@@ -1,0 +1,71 @@
+<?php
+
+namespace CPSE\API\UserBundle\Entity;
+
+use FOS\UserBundle\Model\User as BaseUser;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * APIUser
+ *
+ * @ORM\Table(name="cpse_apiuser")
+ * @ORM\Entity(repositoryClass="CPSE\API\UserBundle\Entity\APIUserRepository")
+ */
+class APIUser extends BaseUser
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="apikey", type="string", length=255)
+     */
+    private $apikey;
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set apikey
+     *
+     * @param string $apikey
+     * @return APIUser
+     */
+    public function setApikey($apikey)
+    {
+        $this->apikey = $apikey;
+
+        return $this;
+    }
+
+    /**
+     * Get apikey
+     *
+     * @return string 
+     */
+    public function getApikey()
+    {
+        return $this->apikey;
+    }
+    
+    public function __construct()
+    {
+        parent::__construct();
+        // your own logic
+    }
+}

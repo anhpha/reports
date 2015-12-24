@@ -1,0 +1,14 @@
+@media (min-width: 768px) {
+  .sidebar {
+    bottom: 0;
+    min-width: 200px;
+    left: 0;
+    z-index: 1000;
+    display: table-cell;
+    padding-top: 20px;
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+    background-color: #138500;
+    border-right: 1px solid #eee;
+  }
+}

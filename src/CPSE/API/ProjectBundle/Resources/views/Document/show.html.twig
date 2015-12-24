@@ -1,0 +1,101 @@
+{% extends 'CPSEAPIProjectBundle::layout.html.twig' %}
+
+
+{% set customActiveRoute = 'document_view_category' %}
+{% block title %} {{ 'Document'|trans({},'document') ~'-'~ document.name }}{% endblock %}
+
+ {% block page_header_title %} {{ 'Document'|trans({},'document') ~': '~ document.name }}{% endblock %}
+
+{% block page_data %}
+<table class="table tabl-striped">
+    <tbody>				        <tr>
+            <th>{{'Parent'|trans({},'document') }}</th>
+            <td>{{ document.parent }}</td>
+        </tr>
+        <tr>
+        	{% set showName = document.originalName %}
+            {% if document.name %}
+            	{% set showName = document.name %}
+            {% endif %}
+            <th>{{'Name'|trans({},'document') }}</th>
+            <td>{{ showName }}</td>
+        </tr>
+        		        
+        		        <tr>
+            <th>{{'Path'|trans({},'document') }}</th>
+            {% if document.type==0 %}
+            <td><a href="{{ vich_uploader_asset(document, 'file') }}">Download</a></td>
+            {% else %}
+            <td></td>
+            {% endif %}
+        </tr>
+        <tr>
+            <th>{{'Description'|trans({},'document') }}</th>
+            <td>
+            	<textarea cols="100" rows="20" disabled="disabled">{{ document.description }}</textarea>
+            </td>
+        </tr>
+        <tr>
+            <th>{{'Type'|trans({},'document') }}</th>
+            <td>{{ document.fileType }}</td>
+        </tr>
+        <tr>
+            <th>{{'Size'|trans({},'document') }}</th>
+            {% if document.type==0 %}
+            <td>{{ document.size|number_format ~ ' bytes' }}</td>
+            {% else %}
+            <td></td>
+            {% endif %}
+        </tr>
+        		        <tr>
+            <th>{{'CreatedBy'|trans({},'common') }}</th>
+            <td>{{ document.createdBy }}</td>
+        </tr>
+        		        <tr>
+            <th>{{'CreatedAt'|trans({},'common') }}</th>
+            <td>{{ document.createdAt|date('Y-m-d H:i:s') }}</td>
+        </tr>
+        		        <tr>
+            <th>{{'UpdatedBy'|trans({},'common') }}</th>
+            <td>{{ document.updatedBy }}</td>
+        </tr>
+        		        <tr>
+            <th>{{'UpdatedAt'|trans({},'common') }}</th>
+            <td>{{ document.updatedAt|date('Y-m-d H:i:s') }}</td>
+        </tr>
+        {% if app.user and is_granted('ROLE_ADMIN') %}
+        		        <tr>
+            <th>{{'Status'|trans({},'document') }}</th>
+            <td>{{ document.status }}</td>
+        </tr>
+        {% endif %}
+        
+    </tbody>
+</table>
+{% if app.user and is_granted('ROLE_ADMIN') %}
+<div class="col-md-12 actions-list">
+    <div class="action">
+    	<a class="btn btn-info" href="{{ path('document_edit', { 'id': document.id }) }}">
+            <i class="glyphicon glyphicon-edit" aria-hidden="true"></i>
+            {{ 'Edit'|trans({},'common') }}
+        </a>
+    </div>
+    <div class="action">
+    	<form class="delete-form" action="{{ path('document_delete', { 'id': document.id }) }}" method="post">
+            {{ form_widget(delete_form) }}
+            <button class="btn btn-danger" type="submit">
+            	<i class="glyphicon glyphicon-remove" aria-hidden="true"></i>
+                {{ 'Delete'|trans({},'common') }}
+            </button>
+        </form>
+    </div>
+</div>
+{% endif %}
+<div class="col-md-12 back-link">
+	<a href="javascript:history.go(-1)">
+            <i class="glyphicon glyphicon-arrow-left" aria-hidden="true"></i>
+             {{ 'Back to the list'|trans({},'common') }}
+        </a>
+</div>
+
+{% endblock %}

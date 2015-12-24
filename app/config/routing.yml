@@ -1,0 +1,41 @@
+#cpseapi_user:
+#    resource: "@CPSEAPIUserBundle/Controller/"
+#    type: annotation
+#    prefix:   /
+cpseapi_task:
+    resource: "@CPSEAPIProjectBundle/Controller/TaskController.php"
+    type:     annotation
+    prefix:   /
+cpseapi_document:
+    resource: "@CPSEAPIProjectBundle/Controller/DocumentController.php"
+    type:     annotation
+    prefix:   /
+cpseapi_project:
+    resource: "@CPSEAPIProjectBundle/Controller/ProjectController.php"
+    type:     annotation
+    prefix:   /
+cpseapi_projectcategory:
+    resource: "@CPSEAPIProjectBundle/Controller/ProjectCategoryController.php"
+    type:     annotation
+    prefix:   /    
+cpseapi_document_status:
+    resource: "@CPSEAPIProjectBundle/Controller/DocumentStatusController.php"
+    type:     annotation
+    prefix:   /
+cpseapi_api_user:
+    resource: "@CPSEAPIUserBundle/Controller"
+    type:     annotation
+    prefix:   /
+#NelmioApiDocBundle:
+#  resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
+#  prefix:   /api/doc
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+cpse_slash_redirect:
+    resource: "@CPSEAPIProjectBundle/Resources/config/routing.yml"
+_welcome:
+    pattern:  /
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: document_view_category
+        permanent: true # this for 301

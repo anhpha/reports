@@ -1,0 +1,35 @@
+<div class="sidebar full-height">
+	<ul class="nav nav-sidebar">
+	{% set activeRoute = 'document_view_category' %}
+	
+	{% if customActiveRoute  is defined and customActiveRoute is not null %}
+		{% set activeRoute = customActiveRoute %}
+	{% endif %}
+{#                     <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>#}
+        <li class="{% if 'projectcategory' == activeRoute %}menu-active{% endif %}">
+        	<a href="{{ path('projectcategory') }}">
+        	    <span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span>
+                {{ 'Project category'|trans({},'messages') }}</a>
+        </li>
+        <li class="{% if 'project' == activeRoute %}menu-active{% endif %}">
+        	<a href="{{ path('project') }}">
+        		<span class="glyphicon glyphicon-tasks" aria-hidden="true"></span>
+        	    {{ 'Project'|trans({},'messages') }}</a>
+        </li>
+{#         <li class="{% if app.request.get('_route') == 'document_type' %}menu-active{% endif %}">#}
+{#         	<a href="{{ path('document_type') }}">#}
+{#         		<span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span> #}
+{#                 {{ 'Document type'|trans({},'messages') }}</a>#}
+{#        	</li>#}
+        <li class="{% if 'document_view_category' == activeRoute %}menu-active{% endif %}">
+        	<a href="{{ path('document_view_category') }}">
+        		<span class="glyphicon glyphicon-duplicate" aria-hidden="true"></span>
+        	    {{ 'Document'|trans({},'messages') }}</a>
+        </li>
+        <li class="{% if 'apiuser' == activeRoute %}menu-active{% endif %}">
+        	<a href="{{ path('apiuser') }}">
+        		<i class="fa fa-users"></i>
+        	    {{ 'Users'|trans({},'messages') }}</a>
+        </li>
+      </ul>
+</div>

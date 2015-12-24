@@ -1,0 +1,123 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="1">
+                <source>task_created</source>
+                <target>Chưa phân công</target>
+            </trans-unit>
+            <trans-unit id="2">
+                <source>task_assigned</source>
+                <target>Đã phân công</target>
+            </trans-unit>
+            <trans-unit id="3">
+                <source>task_pending</source>
+                <target>Chờ xoát xét</target>
+            </trans-unit>
+            <trans-unit id="4">
+                <source>task_finished</source>
+                <target>Hoàn thành</target>
+            </trans-unit>
+            <trans-unit id="5">
+                <source>Approved</source>
+                <target>Đồng ý hoàn thành</target>
+            </trans-unit>
+            <trans-unit id="6">
+                <source>Reject</source>
+                <target>Không đồng ý hoàn thành</target>
+            </trans-unit>
+            <trans-unit id="7">
+                <source>Content</source>
+                <target>Nội dung ghi chú (lý do, diễn giải...)</target>
+            </trans-unit>
+            <trans-unit id="8">
+                <source>Products</source>
+                <target>Danh sách sản phẩm (báo cáo)</target>
+            </trans-unit>
+            <trans-unit id="9">
+                <source>Add doc</source>
+                <target>Thêm báo cáo</target>
+            </trans-unit>
+            <trans-unit id="10">
+                <source>Name</source>
+                <target>Tên công việc</target>
+            </trans-unit>
+            <trans-unit id="11">
+                <source>Status</source>
+                <target>Trạng thái</target>
+            </trans-unit>
+            <trans-unit id="12">
+                <source>Task edit</source>
+                <target>Thay đổi thông tin công việc</target>
+            </trans-unit>
+            <trans-unit id="13">
+                <source>Task infor</source>
+                <target>Thông tin công việc</target>
+            </trans-unit>
+            <trans-unit id="14">
+                <source>Desription</source>
+                <target>Mô tả</target>
+            </trans-unit>
+            <trans-unit id="15">
+                <source>Related_docs</source>
+                <target>Tài liệu tham khảo</target>
+            </trans-unit>
+            <trans-unit id="16">
+                <source>Last submit</source>
+                <target>Nội dung thay đổi gần nhất</target>
+            </trans-unit>
+            <trans-unit id="17">
+                <source>Assigned_to</source>
+                <target>Người thực hiện</target>
+            </trans-unit>
+            <trans-unit id="18">
+                <source>Task reject</source>
+                <target>Phản hồi công việc cần chỉnh sửa</target>
+            </trans-unit>
+            <trans-unit id="19">
+                <source>Task approval</source>
+                <target>Duyệt hoàn thành công việc</target>
+            </trans-unit>
+            <trans-unit id="20">
+                <source>Task list</source>
+                <target>Danh sách công việc</target>
+            </trans-unit>
+            <trans-unit id="21">
+                <source>Progress</source>
+                <target>Tiến độ</target>
+            </trans-unit>
+            <trans-unit id="22">
+                <source>Deadline</source>
+                <target>Hạn hoàn thành</target>
+            </trans-unit>
+            <trans-unit id="23">
+                <source>Updatedat</source>
+                <target>Cập nhật lần cuối</target>
+            </trans-unit>
+            <trans-unit id="24">
+                <source>Task creation</source>
+                <target>Tạo công việc mới</target>
+            </trans-unit>
+            <trans-unit id="25">
+                <source>From</source>
+                <target>Bắt đầu</target>
+            </trans-unit>
+            <trans-unit id="26">
+                <source>To</source>
+                <target>Hạn hoàn thành</target>
+            </trans-unit>
+            <trans-unit id="27">
+                <source>Attached file</source>
+                <target>Tập tin đính kèm</target>
+            </trans-unit>
+            <trans-unit id="28">
+                <source>Note content</source>
+                <target>Nội dung ghi chú</target>
+            </trans-unit>
+            <trans-unit id="29">
+                <source>did not match any item</source>
+                <target>Không tồn tại</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

@@ -1,0 +1,110 @@
+{% extends 'CPSEAPIProjectBundle::layout.html.twig' %}
+
+
+{% set customActiveRoute = 'project' %}
+{% block title %} {{ 'Project'|trans({},'project') }} {{ document.name }}{% endblock %}
+{% block page_header %}
+    <div class="project-summary">
+    	<h1>{{ document.name }}</h1>
+        <div class="project-description">{{ document.description }}</div>
+    </div>
+{% endblock %}
+
+{% block page_data %}
+{% if currentOrder == 'asc' %}
+	{% set nextOrder = 'desc' %}
+	{% set icon = '<span style="font-size:8px;" class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>' %}
+{% else %}
+	{% set nextOrder = 'asc' %}
+	{% set icon = '<span style="font-size:8px;" class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>' %}
+{% endif %}
+{% include '::projecttopnavbar.html.twig' with {'project': document} only %}
+<div class="project-infor col-md-12">
+	<div class="col-md-6 no-padding">
+		<table class="table table-striped data-table">
+			<thead>
+				<tr>						            	
+        			<th> {{'Parent'|trans({},'document') }}
+        			</th>
+                	<th><a href="{{ path('document',{'sortedBy': 'name', 'order': nextOrder}) }}">
+                	    {{'Name'|trans({},'document') }}
+                	    {% if currentSort == 'name' %}
+        			        {{ icon |raw}}
+        			    {% endif %}
+                	    </a></th>
+                	<th>{{'Path'|trans({},'document') }}</th>
+                	<th>{{'Description'|trans({},'document') }}</th>
+                	<th><a href="{{ path('document',{'sortedBy': 'filetype', 'order': nextOrder}) }}">
+                	    {{'Type'|trans({},'document') }}
+                	    {% if currentSort == 'filetype' %}
+        			        {{ icon |raw}}
+        			    {% endif %}
+                	    </a></th>
+                	<th><a href="{{ path('document',{'sortedBy': 'filesize', 'order': nextOrder}) }}">
+                	    {{'Size'|trans({},'document') }}
+                	    {% if currentSort == 'filesize' %}
+        			        {{ icon |raw}}
+        			    {% endif %}
+                	    </a></th>
+                	<th><a href="{{ path('document',{'sortedBy': 'updatedAt', 'order': nextOrder}) }}">
+                	{{'UpdatedAt'|trans({},'common') }}
+                	{% if currentSort == 'updatedAt' %}
+        			        {{ icon |raw}}
+        			    {% endif %}
+                	</a></th>
+                	{% if app.user and is_granted('ROLE_DOC_EDITOR') %}
+                	<th><a href="{{ path('document',{'sortedBy': 'status', 'order': nextOrder}) }}">
+                	{{'Status'|trans({},'document') }}
+                	{% if currentSort == 'status' %}
+        			        {{ icon |raw}}
+        			    {% endif %}
+                	</a></th>
+        			<th>Actions</th>
+                    {% endif %}
+                </tr>
+			</thead>
+			<tbody>				        
+			
+	        </tbody>
+		</table>
+        
+	</div>
+	<div class="col-md-6">
+		<div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">{{'Members'|trans({},'project') }}</h3>
+          </div>
+          <div class="panel-body">
+            {% for member in document.members %}
+        		<div>{{ member }}</div>
+        	{% endfor %}
+          </div>
+        </div>
+	</div>
+	
+    
+    
+</div>
+<div class="col-md-12 actions-list">
+    <div class="action">
+    	<a class="btn btn-info" href="{{ path('project_edit', { 'id': document.id }) }}">
+            <i class="glyphicon glyphicon-edit" aria-hidden="true"></i>
+            {{ 'Edit'|trans({},'common') }}
+        </a>
+    </div>
+    <div class="action">
+    	<form class="delete-form" action="{{ path('project_delete', { 'id': document.id }) }}" medivod="post">
+            {{ form_widget(delete_form) }}
+            <button class="btn btn-danger" type="submit">
+            	<i class="glyphicon glyphicon-remove" aria-hidden="true"></i>
+                {{ 'Delete'|trans({},'common') }}
+            </button>
+        </form>
+    </div>
+</div>
+<div class="col-md-12 back-link">
+	<a href="{{ path('project') }}">
+            <i class="glyphicon glyphicon-arrow-left" aria-hidden="true"></i>
+             {{ 'Back to dive list'|trans({},'common') }}
+        </a>
+</div>{% endblock %}

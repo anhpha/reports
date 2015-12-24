@@ -1,0 +1,80 @@
+{% extends 'CPSEAPIProjectBundle::layout.html.twig' %}
+
+{% set customActiveRoute = 'project' %}
+
+{% block title %} {{ 'Project list'|trans({},'project') }}{% endblock %}
+{% block page_header %}
+	<h1>{% block page_header_title %} {{ 'Project list'|trans({},'project') }}{% endblock %}
+		<a class="btn btn-success" href="{{ path('project_new') }}">
+        <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>        
+         {{ 'New'|trans({},'common') }}
+            </a>
+	</h1>
+{% endblock %}
+ 
+
+{% block page_data %}
+
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+        	<th>{{'Project_code'|trans({},'project') }}</th>						            	
+       		<th>{{'Name'|trans({},'project') }}</th>
+        	<th>{{'Category'|trans({},'project') }}</th>
+        	<th>{{'Pm'|trans({},'project') }}</th>
+        	<th>{{'Start'|trans({},'project') }}</th>
+        	<th>{{'End'|trans({},'project') }}</th>
+        	<th>{{'Status'|trans({},'project') }}</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for document in documents %}
+        <tr>    	    	
+            <td>{{ document.projectcode }}</td>
+            <td><a href="{{ path('project_show', { 'id': document.id }) }}">{{ document.name }}</a></td>    	
+            <td>{{ document.category }}</td>    	
+            <td>{{ document.pm }}</td>    	
+            <td>{% if document.start %}{{ document.start|date('Y-m-d') }}{% endif %}</td>    	
+            <td>{% if document.end %}{{ document.end|date('Y-m-d') }}{% endif %}</td>    	
+            <td>{{ document.status }}</td>    	
+            
+            <td>                		
+                        <a class="btn btn-info" href="{{ path('project_edit', { 'id': document.id }) }}">
+                        	                				<i class="glyphicon glyphicon-edit" aria-hidden="true"></i>
+                			                             {{ 'Edit'|trans({},'common') }}
+                        </a>
+                            <form class="delete-form" action="{{ path('project_delete', { 'id': document.id }) }}" method="post">
+                               {{ form_widget(deleteForms[document.id],{'attr':{'class':'delete-form'}}) }}
+                                <button type="submit" class="btn btn-danger">
+                            	<i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
+                            	 {{ 'Delete'|trans({},'common') }}
+                            	</button>
+                            	<input type="hidden" value="{{ document.name }}" name="document_name">
+                            </form>
+                		
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<div><a class="btn btn-success" href="{{ path('project_new') }}">
+    <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>        
+     {{ 'New'|trans({},'common') }}
+        </a></div>
+{% endblock %}
+{% block inlinescripts %}
+	<script type="text/javascript">
+        	$(document).ready(function(){
+        		$('.delete-form').find(':submit').click(function(e){
+        			 e.preventDefault();
+        			 var form = $(this).closest('form');
+        			 var itemName = form.find('[name="document_name"]').val();
+        			 var text = "{{ 'If you delete this project, all related information will be lost. Are you sure to delete project:'|trans({},'project') }} ";
+        			 confirmDelete(form, text, itemName);
+        		});
+        	});
+    </script>
+{% endblock %}

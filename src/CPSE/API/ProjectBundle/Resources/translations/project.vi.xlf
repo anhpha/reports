@@ -1,0 +1,119 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="1">
+                <source>Name</source>
+                <target>Tên</target>
+            </trans-unit>
+            <trans-unit id="2">
+                <source>Description</source>
+                <target>Mô tả</target>
+            </trans-unit>
+            <trans-unit id="3">
+                <source>Project list</source>
+                <target>Danh sách dự án</target>
+            </trans-unit>
+            <trans-unit id="4">
+                <source>Add new project</source>
+                <target>Thêm dự án mới</target>
+            </trans-unit>
+            <trans-unit id="5">
+                <source>Parent</source>
+                <target>Thuộc loại</target>
+            </trans-unit>
+            <trans-unit id="6">
+                <source>Parent</source>
+                <target>Thuộc loại</target>
+            </trans-unit>
+            <trans-unit id="7">
+                <source>Start</source>
+                <target>Ngày bắt đầu</target>
+            </trans-unit>
+            <trans-unit id="8">
+                <source>End</source>
+                <target>Ngày kết thúc</target>
+            </trans-unit>
+            <trans-unit id="9">
+                <source>Category</source>
+                <target>Thuộc loại</target>
+            </trans-unit>
+            <trans-unit id="10">
+                <source>Pm</source>
+                <target>Trưởng dự án</target>
+            </trans-unit>
+            <trans-unit id="11">
+                <source>Status</source>
+                <target>Trạng thái</target>
+            </trans-unit>
+            <trans-unit id="12">
+                <source>Project_code</source>
+                <target>Mã dự án</target>
+            </trans-unit>
+            <trans-unit id="13">
+                <source>Members</source>
+                <target>Danh sách thành viên</target>
+            </trans-unit>
+            <trans-unit id="14">
+                <source>References</source>
+                <target>Danh sách tài liệu liên quan</target>
+            </trans-unit>
+            <trans-unit id="15">
+                <source>Product</source>
+                <target>Báo cáo cuối</target>
+            </trans-unit>
+            <trans-unit id="16">
+                <source>Project edit</source>
+                <target>Chỉnh sửa thông tin dự án</target>
+            </trans-unit>
+            <trans-unit id="17">
+                <source>Project</source>
+                <target>Thông tin dự án</target>
+            </trans-unit>
+            <trans-unit id="18">
+                <source>Project creation</source>
+                <target>Thêm dự án mới</target>
+            </trans-unit>
+            <trans-unit id="19">
+                <source>did not match any item</source>
+                <target>Không tồn tại</target>
+            </trans-unit>
+            <trans-unit id="20">
+                <source>Add more member</source>
+                <target>Thêm thành viên mới</target>
+            </trans-unit>
+            <trans-unit id="21">
+                <source>Member has been added!</source>
+                <target>Thành viên này đã tồn tại!</target>
+            </trans-unit>
+            <trans-unit id="22">
+                <source>If you delete this project, all related information will be lost. Are you sure to delete project:</source>
+                <target>Nếu bạn xóa dự án này, tất cả các thông tin và tài liệu liên quan sẽ bị xóa. Bạn có thật sự muốn xóa dự án: </target>
+            </trans-unit>
+            <trans-unit id="23">
+                <source>Updated_on</source>
+                <target>Ngày tạo</target>
+            </trans-unit>
+            <trans-unit id="24">
+                <source>Project infor</source>
+                <target>Thông tin chung</target>
+            </trans-unit>
+            <trans-unit id="25">
+                <source>Project tasks</source>
+                <target>Công việc</target>
+            </trans-unit>
+            <trans-unit id="26">
+                <source>Project document</source>
+                <target>Tài liệu tham khảo</target>
+            </trans-unit>
+            <trans-unit id="27">
+                <source>Project products</source>
+                <target>Danh sách sản phẩm</target>
+            </trans-unit>
+            <trans-unit id="28">
+                <source>Updated_by</source>
+                <target>Người cập nhật</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

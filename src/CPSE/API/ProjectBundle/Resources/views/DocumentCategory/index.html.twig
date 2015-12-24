@@ -1,0 +1,58 @@
+{% extends 'CPSEAPIProjectBundle::layout.html.twig' %}
+
+
+
+{% block title %} {{ 'DocumentCategory list'|trans({},'documentcategory') }}{% endblock %}
+
+ {% block page_header_title %} {{ 'DocumentCategory list'|trans({},'documentcategory') }}{% endblock %}
+
+{% block page_data %}
+
+
+<table class="table table-striped">
+    <thead>
+        <tr>						            	<th>{{'Parent'|trans({},'documentcategory') }}</th>
+						            	<th>{{'Name'|trans({},'documentcategory') }}</th>
+						            	<th>{{'Description'|trans({},'documentcategory') }}</th>
+						            	<th>{{'Created_on'|trans({},'documentcategory') }}</th>
+						            	<th>{{'Created_by'|trans({},'documentcategory') }}</th>
+						            	<th>{{'Updated_on'|trans({},'documentcategory') }}</th>
+						            	<th>{{'Updated_by'|trans({},'documentcategory') }}</th>
+			
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for document in documents %}
+        <tr>    	    	
+            <td>{{ document.parent }}</td>    	
+            <td><a href="{{ path('documentcategory_show', { 'id': document.id }) }}">{{ document.name }}</a></td>    	
+            <td>{{ document.description }}</td>    	
+            <td>{% if document.createdon %}{{ document.createdon|date('Y-m-d H:i:s') }}{% endif %}</td>    	
+            <td>{{ document.createdby }}</td>    	
+            <td>{% if document.updatedon %}{{ document.updatedon|date('Y-m-d H:i:s') }}{% endif %}</td>    	
+            <td>{{ document.updatedby }}</td>
+            <td>                		
+                        <a class="btn btn-info" href="{{ path('documentcategory_edit', { 'id': document.id }) }}">
+                        	                				<i class="glyphicon glyphicon-edit" aria-hidden="true"></i>
+                			                             {{ 'Edit'|trans({},'common') }}
+                        </a>
+                                        		                			<form class="delete-form" action="{{ path('documentcategory_delete', { 'id': document.id }) }}" method="post">
+                               {{ form_widget(deleteForms[document.id],{'attr':{'class':'delete-form'}}) }}
+                                <button type="submit" class="btn btn-danger">
+                            	<i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
+                            	 {{ 'Delete'|trans({},'common') }}
+                            	</button>
+                            </form>
+                		
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<div><a class="btn btn-success" href="{{ path('documentcategory_new') }}">
+    <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>        
+     {{ 'New'|trans({},'common') }}
+        </a></div>
+{% endblock %}

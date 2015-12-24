@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="1">
+                <source>Project category</source>
+                <target>Loại dự án</target>
+            </trans-unit>
+            <trans-unit id="2">
+                <source>Project</source>
+                <target>Dự án</target>
+            </trans-unit>
+            <trans-unit id="3">
+                <source>Document type</source>
+                <target>Loại tài liệu</target>
+            </trans-unit>
+            <trans-unit id="4">
+                <source>Document</source>
+                <target>Tài liệu</target>
+            </trans-unit>
+            <trans-unit id="5">
+                <source>Task</source>
+                <target>Công việc</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

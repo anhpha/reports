@@ -1,0 +1,175 @@
+{% extends 'CPSEAPIProjectBundle::layout.html.twig' %}
+
+
+{% set customActiveRoute = 'project' %}
+{% block title %} {{ 'Document category list'|trans({},'document') }}{% endblock %}
+
+{% block page_header %}
+    <div class="project-summary">
+    	<h1>{{ project.name }}</h1>
+        <div class="project-description">{{ project.description }}</div>
+    </div>
+{% endblock %}
+
+{% block page_data %}
+
+{% if currentSort is null %}{% set currentSort = 'updatedAt' %} {% endif %}
+{% if currentOrder is null %}{% set currentOrder = 'desc' %} {% endif %}
+
+ {% if currentOrder == 'asc' %}
+ 	{% set nextOrder = 'desc' %}
+ 	{% set icon = '<span style="font-size:8px;" class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>' %}
+ {% else %}
+ 	{% set nextOrder = 'asc' %}
+	{% set icon = '<span style="font-size:8px;" class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>' %}
+{% endif %}	
+{% set sortingParams = {} %}
+{% if currentCategory %}
+	{% set sortingParams = sortingParams|merge({'categoryId': currentCategory.getId()}) %}
+{% endif %}
+{% include '::projecttopnavbar.html.twig' with {'project': project} only %}
+<div class="project-infor col-md-12">
+    <div class="col-md-12">
+        	<div class="col-md-8"></div>
+        	<div class="col-md-4">
+        		{% set curCatId = '' %}
+                {% if currentCategory%}
+        			{% set curCatId = currentCategory.id %}
+        		{% endif %}
+            	<a class="btn btn-success pull-right" href="{{ path('document_new',{'catId': curCatId, 'returnPath': path(app.request.get('_route'), {'projectId': project.id})}) }}">
+                	<i class="fa fa-upload"></i>        
+                 {{ 'Upload'|trans({},'common') }}
+                </a>
+                <a class="btn btn-default pull-right" href="{{ path('document_folder_new',{'catId': curCatId, 'returnPath': path(app.request.get('_route'), {'projectId': project.id})}) }}">
+                	<i class="fa fa-folder"></i>        
+                 {{ 'New folder'|trans({},'document') }}
+                </a>
+        	</div>
+        </div>
+    <table class="table table-striped">
+        <thead>
+    		<tr>						            	
+    			
+            	<th>
+            	{% set nameSortingParams = sortingParams|merge({'sortedBy': 'name', 'order': nextOrder}) %}
+            	<a href="{{ path('document_view_category', nameSortingParams) }}">
+            	    {{'Name'|trans({},'document') }}
+            	    {% if currentSort == 'name' %}
+    			        {{ icon |raw}}
+    			    {% endif %}
+            	    </a></th>
+            	<th>{{'Path'|trans({},'document') }}</th>
+            	<th>{{'Description'|trans({},'document') }}</th>
+            	
+            	<th>
+            	{% set sizeSortingParams = sortingParams|merge({'sortedBy': 'filesize', 'order': nextOrder}) %}
+            	<a href="{{ path('document_view_category', sizeSortingParams) }}">
+            	    {{'Size'|trans({},'document') }}
+            	    {% if currentSort == 'filesize' %}
+    			        {{ icon |raw}}
+    			    {% endif %}
+            	    </a></th>
+            	<th>
+            	{% set typeSortingParams = sortingParams|merge({'sortedBy': 'filetype', 'order': nextOrder}) %}
+            	<a href="{{ path('document_view_category', typeSortingParams) }}">
+            	    {{'Type'|trans({},'document') }}
+            	    {% if currentSort == 'filetype' %}
+    			        {{ icon |raw}}
+    			    {% endif %}
+            	    </a></th>
+            	<th>
+            	{% set updateSortingParams = sortingParams|merge({'sortedBy': 'updatedAt', 'order': nextOrder}) %}
+            	<a href="{{ path('document_view_category', updateSortingParams) }}">
+            	{{'UpdatedAt'|trans({},'common') }}
+            	{% if currentSort == 'updatedAt' %}
+    			        {{ icon |raw}}
+    			    {% endif %}
+            	</a></th>
+            	{% if app.user and is_granted('ROLE_DOC_EDITOR') %}
+    			<th>Actions</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+        {% for document in documents %}
+            <tr> 
+            	{% if document.type == 1 %}
+            		<td><a href="{{ path('document_view_category', { 'categoryId': document.id }) }}">
+                    	<span class="glyphicon glyphicon-folder-close" aria-hidden="true"></span>
+                        {{ document.name[:50] }}
+                    </a></td> 
+                     <td></td> 
+                     <td>{{ document.description[:50] ~ '...' }}</td>   	
+               		 <td></td>
+            	{% else %}   	    	
+                    <td><a href="{{ path('document_show', { 'id': document.id }) }}">
+                        <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
+                        {{ document.name[:50] }}
+                    </a></td>
+                     <td><a href="{{ vich_uploader_asset(document, 'file') }}">Download</a></td>    	
+                    <td>{{ document.description[:50] ~ '...' }}</td>
+                     <td>{{ (document.size/1000000)|number_format(2, '.', ',') ~' MB' }}</td>
+                {% endif %}    	
+               
+                <td>{{ document.fileType }}</td>
+               
+                <td>{% if document.updatedAt %}{{ document.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>  
+                {% if app.user and is_granted('ROLE_DOC_EDITOR') %}  	
+                <td>                		
+                            <a class="btn btn-info" href="{{ path('document_edit', { 'id': document.id, 'returnPath': path(app.request.get('_route'), {'projectId': project.id}) }) }}">
+                            	                				<i class="glyphicon glyphicon-edit" aria-hidden="true"></i>
+                            </a>
+                                            		                			<form class="delete-form" action="{{ path('document_delete', { 'id': document.id }) }}" method="post">
+                                   {{ form_widget(deleteForms[document.id],{'attr':{'class':'delete-form'}}) }}
+                                    <button type="submit" class="btn btn-danger">
+                                	<i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
+                                	</button>
+                                	<input type="hidden" value="{{ document.name }}" name="document_name">
+                                	<input type="hidden" value="{{ document.type }}" name="document_type">
+                                </form>
+                    		
+                </td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div class="paging">
+    	{% set display = 5 %}
+    	{% set params = {} %}
+    	{% if currentSort %}
+    	    {% set params = params|merge({'sortedBy':currentSort}) %}
+    	{% endif %}
+    	{% if currentOrder %}
+    	    {% set params = params|merge({'order':currentOrder}) %}
+    	{% endif %}
+    	{% include '::paging.html.twig' with 
+    	    {'total': total, 'pageSize':pageSize, 'currentPage':currentPage, 'display': display, 'params':params} only %}
+    </div>
+</div>
+{% if app.user and is_granted('ROLE_DOC_EDITOR') and currentCategory %}
+{% endif %}
+<div class="col-md-12 back-link">
+	<a href="{{ path('project') }}">
+            <i class="glyphicon glyphicon-arrow-left" aria-hidden="true"></i>
+             {{ 'Back to the list'|trans({},'common') }}
+        </a>
+</div>
+{% endblock %}
+{% block inlinescripts %}
+	<script type="text/javascript">
+        	$(document).ready(function(){
+        		$('.delete-form').find(':submit').click(function(e){
+        			 e.preventDefault();
+        			 var form = $(this).closest('form');
+        			 var itemName = form.find('[name="document_name"]').val();
+        			 var text = "{{ 'Are your sure to delelte'|trans({},'document') }}";
+        			 var type = form.find('[name="document_type"]').val();
+        			 if (type == 1) {
+        				 text = "{{ 'Are your sure to delelte'|trans({},'documentcategory') }}";
+        			 }
+        			 confirmDelete(form, text, itemName);
+        		});
+        	});
+    </script>
+{% endblock %}

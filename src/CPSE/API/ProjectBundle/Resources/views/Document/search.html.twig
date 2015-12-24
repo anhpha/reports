@@ -1,0 +1,134 @@
+{% extends 'CPSEAPIProjectBundle::layout.html.twig' %}
+
+
+{% set customActiveRoute = 'document_view_category' %}
+{% block title %} {{ 'Search results'|trans({},'document') }} {{ q }}{% endblock %}
+
+ {% block page_header_title %} {{ 'Search results'|trans({},'document') }} {{ '"'~q ~'"'}}{% endblock %}
+
+{% block page_data %}
+
+{% if currentOrder == 'asc' %}
+	{% set nextOrder = 'desc' %}
+	{% set icon = '<span style="font-size:8px;" class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>' %}
+{% else %}
+	{% set nextOrder = 'asc' %}
+	{% set icon = '<span style="font-size:8px;" class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>' %}
+{% endif %}
+{% set sortingParams = {} %}
+{% if currentCategory is defined %}
+	{% set sortingParams = sortingParams|merge({'categoryId': currentCategory.getId()}) %}
+{% endif %}	
+<table class="table table-striped">
+    <thead>
+		<tr>						            	
+			<th>
+        	{% set typeSortingParams = sortingParams|merge({'sortedBy': 'filetype', 'order': nextOrder}) %}
+        	<a href="{{ path('document_view_category', typeSortingParams) }}">
+        	    {{'Type'|trans({},'document') }}
+        	    {% if currentSort == 'filetype' %}
+			        {{ icon |raw}}
+			    {% endif %}
+        	    </a></th>
+        	<th><a href="{{ path('document',{'sortedBy': 'name', 'order': nextOrder}) }}">
+        	    {{'Name'|trans({},'document') }}
+        	    {% if currentSort == 'name' %}
+			        {{ icon |raw}}
+			    {% endif %}
+        	    </a></th>
+        	<th>{{'Path'|trans({},'document') }}</th>
+        	<th>{{'Description'|trans({},'document') }}</th>
+        	<th><a href="{{ path('document',{'sortedBy': 'updatedBy', 'order': nextOrder}) }}">
+        	{{'UpdatedBy'|trans({},'common') }}
+        	{% if currentSort == 'updatedBy' %}
+			        {{ icon |raw}}
+			    {% endif %}
+        	</a></th>
+        	<th><a href="{{ path('document',{'sortedBy': 'updatedAt', 'order': nextOrder}) }}">
+        	{{'UpdatedAt'|trans({},'common') }}
+        	{% if currentSort == 'updatedAt' %}
+			        {{ icon |raw}}
+			    {% endif %}
+        	</a></th>
+        	{% if app.user and is_granted('ROLE_ADMIN') %}
+        	<th><a href="{{ path('document',{'sortedBy': 'status', 'order': nextOrder}) }}">
+        	{{'Status'|trans({},'document') }}
+        	{% if currentSort == 'status' %}
+			        {{ icon |raw}}
+			    {% endif %}
+        	</a></th>
+			<th>Actions</th>
+            {% endif %}
+        </tr>
+    </thead>
+    <tbody>
+    {% for document in documents %}
+        <tr>    	    	
+            <td>{{ document.fileType }}</td>
+            {% if document.type == constant('CPSE\\API\\ProjectBundle\\Document\\Document::FILE') %}    	
+                <td><a href="{{ path('document_show', { 'id': document.id }) }}">{{ document.name[:50] }}</a></td>    	
+                <td>
+            		<a href="{{ vich_uploader_asset(document, 'file') }}">Download</a>
+                </td>
+            {% else %}
+            	<td><a href="{{ path('document_view_category', { 'categoryId': document.id }) }}">
+                	<span class="glyphicon glyphicon-folder-close" aria-hidden="true"></span>
+                    {{ document.name[:50] }}
+                </a></td>    	
+                <td>
+                </td>
+            {% endif %}    	
+            <td>{{ document.description[:50] ~ '...' }}</td>
+            <td>{{ document.updatedBy }}</td>    	
+            <td>{% if document.updatedAt %}{{ document.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+            {% if app.user and is_granted('ROLE_ADMIN') %}  	
+            <td>{{ document.status }}</td>    	
+            <td>                		
+                        <a class="btn btn-info" href="{{ path('document_edit', { 'id': document.id }) }}">
+                        	                				<i class="glyphicon glyphicon-edit" aria-hidden="true"></i>
+                        </a>
+                                        		                			<form class="delete-form" action="{{ path('document_delete', { 'id': document.id }) }}" method="post">
+                               {{ form_widget(deleteForms[document.id],{'attr':{'class':'delete-form'}}) }}
+                                <button type="submit" class="btn btn-danger">
+                            	<i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
+                            	</button>
+                            	<input type="hidden" value="{{ document.name }}" name="document_name">
+                            	<input type="hidden" value="{{ document.type }}" name="document_type">
+                            </form>
+                		
+            </td>
+            {% endif %}  
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<div class="paging">
+	{% set display = 5 %}
+	{% set params = {} %}
+	{% if currentSort %}
+	    {% set params = params|merge({'sortedBy':currentSort}) %}
+	{% endif %}
+	{% if currentOrder %}
+	    {% set params = params|merge({'order':currentOrder}) %}
+	{% endif %}
+	{% include '::paging.html.twig' with 
+	    {'total': total, 'pageSize':pageSize, 'currentPage':currentPage, 'display': display, 'params':params} only %}
+</div>
+{% endblock %}
+{% block inlinescripts %}
+	<script type="text/javascript">
+        	$(document).ready(function(){
+        		$('.delete-form').find(':submit').click(function(e){
+        			 e.preventDefault();
+        			 var form = $(this).closest('form');
+        			 var itemName = form.find('[name="document_name"]').val();
+        			 var text = "{{ 'Are your sure to delelte'|trans({},'document') }}";
+					 var type = form.find('[name="document_type"]').val();
+        			 if (type == 1) {
+        				 text = "{{ 'Are your sure to delelte'|trans({},'documentcategory') }}";
+        			 }
+        			 confirmDelete(form, text, itemName);
+        		});
+        	});
+    </script>
+{% endblock %}

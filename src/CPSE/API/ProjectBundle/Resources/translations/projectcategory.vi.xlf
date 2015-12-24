@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="1">
+                <source>Name</source>
+                <target>Tên</target>
+            </trans-unit>
+            <trans-unit id="2">
+                <source>Description</source>
+                <target>Mô tả</target>
+            </trans-unit>
+            <trans-unit id="3">
+                <source>Dashboard</source>
+                <target>Dashboard</target>
+            </trans-unit>
+            <trans-unit id="4">
+                <source>Edit</source>
+                <target>Chá»‰nh sá»­a</target>
+            </trans-unit>
+            <trans-unit id="5">
+                <source>Delete</source>
+                <target>XÃ³a</target>
+            </trans-unit>
+            <trans-unit id="6">
+                <source>New</source>
+                <target>ThÃªm má»›i</target>
+            </trans-unit>
+            <trans-unit id="7">
+                <source>Project category list</source>
+                <target>Danh sách loại dự án</target>
+            </trans-unit>
+            <trans-unit id="8">
+                <source>Add new project category</source>
+                <target>Thêm mới loại dự án</target>
+            </trans-unit>
+            <trans-unit id="9">
+                <source>Parent</source>
+                <target>Thuộc loại</target>
+            </trans-unit>
+            <trans-unit id="10">
+                <source>Documentcategory</source>
+                <target>Báo cáo sẽ lưu vào loại</target>
+            </trans-unit>
+            <trans-unit id="11">
+                <source>ProjectCategory creation</source>
+                <target>Thêm mới loại dự án</target>
+            </trans-unit>
+            <trans-unit id="12">
+                <source>ProjectCategory list</source>
+                <target>Danh sách loại dự án</target>
+            </trans-unit>
+            <trans-unit id="13">
+                <source>ProjectCategory</source>
+                <target>Thông tin loại dự án</target>
+            </trans-unit>
+            <trans-unit id="14">
+                <source>ProjectCategory edit</source>
+                <target>Chỉnh sửa thông tin loại dự án</target>
+            </trans-unit>
+            <trans-unit id="15">
+                <source>Are your sure to delelte</source>
+                <target>Bạn có chắn chắn muốn xóa loại dự án </target>
+            </trans-unit>
+            <trans-unit id="16">
+                <source>This have child project!</source>
+                <target>Không thể xóa loại dự án này. Hiện đang có dự án thuộc loại này trong hệ thống!</target>
+            </trans-unit>
+            <trans-unit id="17">
+                <source>Please choose folder</source>
+                <target>Vui lòng chọn thư mục chứa báo cáo</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

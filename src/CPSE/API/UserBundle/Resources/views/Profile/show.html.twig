@@ -1,0 +1,11 @@
+{% extends "CPSEAPIUserBundle::layout.html.twig" %}
+
+{% trans_default_domain 'apiuser' %}
+{% set customActiveRoute = 'apiuser' %}
+{% block title %}{% trans %}Profile{% endtrans %}{% endblock %}
+
+{% block page_header_title %}{% trans %}Profile{% endtrans %}{% endblock %}
+
+{% block page_data %}
+{% include "CPSEAPIUserBundle:Profile:show_content.html.twig" %}
+{% endblock page_data %}

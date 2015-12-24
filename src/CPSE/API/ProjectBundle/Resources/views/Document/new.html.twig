@@ -1,0 +1,70 @@
+{% extends 'CPSEAPIProjectBundle::layout.html.twig' %}
+
+{% set customActiveRoute = 'document_view_category' %}
+{% set title =  'Document creation' %}
+{% if form.vars.value.type == constant('CPSE\\API\\ProjectBundle\\Document\\Document::FOLDER') %}
+	{% set title =  'Document category creation' %}
+{% endif %}
+
+
+{% block title %} {{ title|trans({},'document') }}{% endblock %}
+
+ {% block page_header_title %} {{ title|trans({},'document') }}{% endblock %}
+
+{% block page_data %}
+<div class="col-md-12">
+    <div class="col-md-6">
+    	{% set curCatId = '' %}
+        {% if currentCategory%}
+			{% set curCatId = currentCategory.id %}
+		{% endif %}
+        <form action="{{ path('document_create', {'catId': curCatId}) }}" method="post" {{ form_enctype(form) }} onsubmit="return setWaitingStatus(this)">
+            {{ form_errors(form) }}
+{#             	    <div class="form-group">#}
+{#                         {% set category_id_label %}{{ form.parent.vars.name|capitalize|trans({},'document') }} {% endset %}#}
+{#                         {{ form_label(form.parent,category_id_label) }}#}
+{#                         {{ form_widget(form.parent, {'attr':{'class':'form-control'}}) }}#}
+{#                         {{ form_errors(form.parent) }}#}
+{#                     </div>#}
+                            	            	            		<div class="form-group">
+                        {% set name_label %}{{ form.name.vars.name|capitalize|trans({},'document') }} {% endset %}
+                        {{ form_label(form.name,name_label) }}
+                        {{ form_widget(form.name, {'attr':{'class':'form-control'}}) }}
+                        {{ form_errors(form.name) }}
+                    </div>
+                    {% if form.children.file is defined %}
+                    	<div class="form-group">
+                            {% set path_label %}{{ form.file.vars.name|capitalize|trans({},'document') }} {% endset %}
+                            {{ form_label(form.file,path_label) }}
+                            {{ form_widget(form.file, {'attr':{'class':'form-control'}}) }}
+                            {{ form_errors(form.file) }}
+                            
+                        </div>
+                    {% endif %}
+                            	            	            		<div class="form-group">
+                        {% set description_label %}{{ form.description.vars.name|capitalize|trans({},'document') }} {% endset %}
+                        {{ form_label(form.description,description_label) }}
+                        {{ form_widget(form.description, {'attr':{'class':'form-control'}}) }}
+                        {{ form_errors(form.description) }}
+                    </div>
+                    <input type="hidden" name="returnPath" id="returnPath" value="{{ returnPath }}">
+                            	            	{{ form_rest(form) }}
+            <p>
+                <button type="submit" class="btn btn-success pull-right">
+                	<i class="glyphicon glyphicon-edit" aria-hidden="true"></i>        
+                     {{ 'Add'|trans({},'common') }}
+                </button>
+            </p>
+        </form>
+    </div>
+</div>
+<div class="col-md-12 actions-list">
+</div>
+<div class="col-md-12 back-link">
+	<a href="javascript:history.go(-1)">
+            <i class="glyphicon glyphicon-arrow-left" aria-hidden="true"></i>
+             {{ 'Back to the list'|trans({},'common') }}
+        </a>
+</div>{% endblock %}
+{% block inlinescripts %}
+{% endblock %}

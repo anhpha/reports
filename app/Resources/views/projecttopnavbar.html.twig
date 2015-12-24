@@ -1,0 +1,20 @@
+<ul class="nav nav-tabs">
+  <li role="presentation" class="{% if app.request.get('_route') == 'project_show' %}active{% endif %}">
+  <a href="{{ path('project_show',{'id':project.id}) }}">
+      	<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+        {{ 'Project infor'|trans({},'project') }}</a>
+  </li>
+  <li role="presentation" class="{% if app.request.get('_route') == 'task' %}active{% endif %}">
+  <a href="{{ path('task', {'projectId': project.id}) }}">
+  		<span class="glyphicon glyphicon-tasks" aria-hidden="true"></span>
+        {{ 'Project tasks'|trans({},'project') }}</a>
+  </li>
+  <li role="presentation" class="{% if app.request.get('_route') == 'document_view_byporject' %}active{% endif %}">
+  	<a href="{{ path('document_view_byporject',{'projectId':project.id}) }}">
+  		<span class="glyphicon glyphicon-book" aria-hidden="true"></span>
+       {{ 'Project document'|trans({},'project') }}</a></li>
+  <li role="presentation" class="{% if app.request.get('_route') == 'document_view_porjectproduct' %}active{% endif %}">
+  	<a href="{{ path('document_view_porjectproduct',{'projectId':project.id}) }}">
+  	<span class="glyphicon glyphicon-inbox" aria-hidden="true"></span>
+       {{ 'Project products'|trans({},'project') }}</a></li>
+</ul>

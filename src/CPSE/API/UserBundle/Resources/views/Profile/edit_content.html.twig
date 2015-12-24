@@ -1,0 +1,15 @@
+{% trans_default_domain 'apiuser' %}
+
+<form action="{{ path('apiuser_profile_edit') }}" {{ form_enctype(form) }} method="POST" class="">
+	<div class="col-md-6 no-padding">
+    	<div class="form-group">
+    		    {{ form_label(form.email) }}
+        		{{ form_widget(form.email, {'attr':{'class':'form-control'}}) }}
+        		{{ form_errors(form.email) }}
+    	</div>   
+    
+        <div>
+            <input type="submit" value="{{ 'profile.edit.submit'|trans }}" />
+        </div>
+    </div>
+</form>

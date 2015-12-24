@@ -1,0 +1,50 @@
+{% extends 'CPSEAPIProjectBundle::layout.html.twig' %}
+
+
+
+{% block title %} {{ 'DocumentStatus list'|trans({},'documentstatus') }}{% endblock %}
+
+ {% block page_header_title %} {{ 'DocumentStatus list'|trans({},'documentstatus') }}{% endblock %}
+
+{% block page_data %}
+
+
+<table class="table table-striped">
+    <thead>
+        <tr>						            	<th>{{'Name'|trans({},'documentstatus') }}</th>
+						            	<th>{{'Description'|trans({},'documentstatus') }}</th>
+						            	<th>{{'Iconhtml'|trans({},'documentstatus') }}</th>
+			
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for document in documents %}
+        <tr>    	    	
+            <td><a href="{{ path('documentstatus_show', { 'id': document.id }) }}">{{ document.name }}</a></td>    	
+            <td>{{ document.description }}</td>    	
+            <td>{{ document.iconHTML }}</td>
+            <td>                		
+                        <a class="btn btn-info" href="{{ path('documentstatus_edit', { 'id': document.id }) }}">
+                        	                				<i class="glyphicon glyphicon-edit" aria-hidden="true"></i>
+                			                             {{ 'Edit'|trans({},'common') }}
+                        </a>
+                                        		                			<form class="delete-form" action="{{ path('documentstatus_delete', { 'id': document.id }) }}" method="post">
+                               {{ form_widget(deleteForms[document.id],{'attr':{'class':'delete-form'}}) }}
+                                <button type="submit" class="btn btn-danger">
+                            	<i class="glyphicon glyphicon-remove" aria-hidden="true"></i>
+                            	 {{ 'Delete'|trans({},'common') }}
+                            	</button>
+                            </form>
+                		
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<div><a class="btn btn-success" href="{{ path('documentstatus_new') }}">
+    <i class="glyphicon glyphicon-edit" aria-hidden="true"></i>        
+     {{ 'New'|trans({},'common') }}
+        </a></div>
+{% endblock %}

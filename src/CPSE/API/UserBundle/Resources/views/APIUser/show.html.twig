@@ -1,0 +1,110 @@
+{% extends 'CPSEAPIProjectBundle::layout.html.twig' %}
+
+
+
+{% block title %} {{ 'APIUser'|trans({},'apiuser') }}{% endblock %}
+
+ {% block page_header_title %} {{ 'APIUser'|trans({},'apiuser') }}{% endblock %}
+
+{% block page_data %}
+
+<table class="table tabl-striped">
+    <tbody>		        <tr>
+            <th>{{'Username'|trans({},'apiuser') }}</th>
+            <td>{{ document.username }}</td>
+        </tr>
+        		        <tr>
+            <th>{{'Usernamecanonical'|trans({},'apiuser') }}</th>
+            <td>{{ document.usernameCanonical }}</td>
+        </tr>
+        		        <tr>
+            <th>{{'Email'|trans({},'apiuser') }}</th>
+            <td>{{ document.email }}</td>
+        </tr>
+        		        <tr>
+            <th>{{'Emailcanonical'|trans({},'apiuser') }}</th>
+            <td>{{ document.emailCanonical }}</td>
+        </tr>
+        		        <tr>
+            <th>{{'Enabled'|trans({},'apiuser') }}</th>
+            <td>{{ document.enabled }}</td>
+        </tr>
+        		        <tr>
+            <th>{{'Salt'|trans({},'apiuser') }}</th>
+            <td>{{ document.salt }}</td>
+        </tr>
+        		        <tr>
+            <th>{{'Password'|trans({},'apiuser') }}</th>
+            <td>{{ document.password }}</td>
+        </tr>
+        		        <tr>
+            <th>{{'Lastlogin'|trans({},'apiuser') }}</th>
+            <td>{{ document.lastLogin|date('Y-m-d H:i:s') }}</td>
+        </tr>
+        		        <tr>
+            <th>{{'Locked'|trans({},'apiuser') }}</th>
+            <td>{{ document.locked }}</td>
+        </tr>
+        		        <tr>
+            <th>{{'Expired'|trans({},'apiuser') }}</th>
+            <td>{{ document.expired }}</td>
+        </tr>
+        		        <tr>
+            <th>{{'Expiresat'|trans({},'apiuser') }}</th>
+            <td>{{ document.expiresAt|date('Y-m-d H:i:s') }}</td>
+        </tr>
+        		        <tr>
+            <th>{{'Confirmationtoken'|trans({},'apiuser') }}</th>
+            <td>{{ document.confirmationToken }}</td>
+        </tr>
+        		        <tr>
+            <th>{{'Passwordrequestedat'|trans({},'apiuser') }}</th>
+            <td>{{ document.passwordRequestedAt|date('Y-m-d H:i:s') }}</td>
+        </tr>
+        		        <tr>
+            <th>{{'Roles'|trans({},'apiuser') }}</th>
+            <td>{{ document.roles }}</td>
+        </tr>
+        		        <tr>
+            <th>{{'Credentialsexpired'|trans({},'apiuser') }}</th>
+            <td>{{ document.credentialsExpired }}</td>
+        </tr>
+        		        <tr>
+            <th>{{'Credentialsexpireat'|trans({},'apiuser') }}</th>
+            <td>{{ document.credentialsExpireAt|date('Y-m-d H:i:s') }}</td>
+        </tr>
+        				        <tr>
+            <th>{{'Apikey'|trans({},'apiuser') }}</th>
+            <td>{{ document.apikey }}</td>
+        </tr>
+        		        <tr>
+            <th>{{'Fullname'|trans({},'apiuser') }}</th>
+            <td>{{ document.fullName }}</td>
+        </tr>
+        
+    </tbody>
+</table>
+
+<div class="col-md-12 actions-list">
+    <div class="action">
+    	<a class="btn btn-info" href="{{ path('apiuser_edit', { 'id': document.id }) }}">
+            <i class="glyphicon glyphicon-edit" aria-hidden="true"></i>
+            {{ 'Edit'|trans({},'common') }}
+        </a>
+    </div>
+    <div class="action">
+    	<form class="delete-form" action="{{ path('apiuser_delete', { 'id': document.id }) }}" method="post">
+            {{ form_widget(delete_form) }}
+            <button class="btn btn-danger" type="submit">
+            	<i class="glyphicon glyphicon-remove" aria-hidden="true"></i>
+                {{ 'Delete'|trans({},'common') }}
+            </button>
+        </form>
+    </div>
+</div>
+<div class="col-md-12 back-link">
+	<a href="{{ path('apiuser') }}">
+            <i class="glyphicon glyphicon-arrow-left" aria-hidden="true"></i>
+             {{ 'Back to the list'|trans({},'common') }}
+        </a>
+</div>{% endblock %}

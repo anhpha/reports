@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="1">
+                <source>DocumentCategory list</source>
+                <target>Danh sách loại tài liệu</target>
+            </trans-unit>
+            <trans-unit id="2">
+                <source>Parent</source>
+                <target>Thuộc loại</target>
+            </trans-unit>
+            <trans-unit id="3">
+                <source>Name</source>
+                <target>Tên</target>
+            </trans-unit>
+            <trans-unit id="4">
+                <source>Description</source>
+                <target>Mô tả</target>
+            </trans-unit>
+            <trans-unit id="5">
+                <source>Created_on</source>
+                <target>Tạo ngày</target>
+            </trans-unit>
+            <trans-unit id="6">
+                <source>Created_by</source>
+                <target>Tạo bởi</target>
+            </trans-unit>
+            <trans-unit id="7">
+                <source>Updated_on</source>
+                <target>Cập nhật lần cuối</target>
+            </trans-unit>
+            <trans-unit id="8">
+                <source>Updated_by</source>
+                <target>Cập nhật bởi</target>
+            </trans-unit>
+            <trans-unit id="9">
+                <source>DocumentCategory edit</source>
+                <target>Cập nhật thông tin</target>
+            </trans-unit>
+            <trans-unit id="10">
+                <source>DocumentCategory creation</source>
+                <target>Thêm mới loại tài liệu</target>
+            </trans-unit>
+            <trans-unit id="11">
+                <source>DocumentCategory</source>
+                <target>Thông tin loại tài liệu</target>
+            </trans-unit>
+            <trans-unit id="12">
+                <source>Are your sure to delelte</source>
+                <target>Nếu xóa thư mục này, tất cả các tài liệu con sẽ bị xóa. Bạn có chắc chắn muốn xóa loại tài liệu </target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

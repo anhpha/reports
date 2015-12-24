@@ -1,0 +1,252 @@
+{% extends 'CPSEAPIProjectBundle::layout.html.twig' %}
+
+{% set customActiveRoute = 'document_view_category' %}
+{% trans_default_domain 'document' %}
+{% block title %} {{ 'Document category list'|trans({},'document') }}{% endblock %}
+
+{% block page_header %}
+		<h1>
+		    {% block page_header_title %} {{ 'Document category list'|trans({},'document') }}
+                {% if currentCategory %}
+          		    {{ 'belong to'|trans({},'document') ~ ' "' ~ currentCategory ~'"' }}
+                {% endif %} 
+              {% endblock %}
+             {% set curCatId = '' %}
+            {% if currentCategory%}
+    			{% set curCatId = currentCategory.id %}
+    		{% endif %}
+        	<a class="btn btn-success" href="{{ path('document_new',{'catId': curCatId}) }}">
+            <i class="fa fa-upload"></i>        
+             {{ 'New'|trans({},'common') }}
+            </a>
+            <a class="btn btn-success" href="{{ path('document_folder_new',{'catId': curCatId}) }}">
+            <i class="fa fa-folder"></i>        
+             {{ 'New category'|trans({},'document') }}
+            </a>
+  		</h1>
+{% endblock %}
+
+ 
+
+{% block page_data %}
+
+{% if currentSort is null %}{% set currentSort = 'updatedAt' %} {% endif %}
+{% if currentOrder is null %}{% set currentOrder = 'desc' %} {% endif %}
+
+ {% if currentOrder == 'asc' %}
+ 	{% set nextOrder = 'desc' %}
+ 	{% set icon = '<span style="font-size:8px;" class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>' %}
+ {% else %}
+ 	{% set nextOrder = 'asc' %}
+	{% set icon = '<span style="font-size:8px;" class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>' %}
+{% endif %}	
+{% set sortingParams = {} %}
+{% if currentCategory %}
+	{% set sortingParams = sortingParams|merge({'categoryId': currentCategory.getId()}) %}
+{% endif %}
+<table class="table table-striped">
+    <thead>
+		<tr>						            	
+			
+        	<th>
+        	{% set nameSortingParams = sortingParams|merge({'sortedBy': 'name', 'order': nextOrder}) %}
+        	<a href="{{ path('document_view_category', nameSortingParams) }}">
+        	    {{'Name'|trans({},'document') }}
+        	    {% if currentSort == 'name' %}
+			        {{ icon |raw}}
+			    {% endif %}
+        	    </a></th>
+        	<th>{{'Path'|trans({},'document') }}</th>
+        	<th>{{'Description'|trans({},'document') }}</th>
+        	
+        	<th>
+        	{% set sizeSortingParams = sortingParams|merge({'sortedBy': 'filesize', 'order': nextOrder}) %}
+        	<a href="{{ path('document_view_category', sizeSortingParams) }}">
+        	    {{'Size'|trans({},'document') }}
+        	    {% if currentSort == 'filesize' %}
+			        {{ icon |raw}}
+			    {% endif %}
+        	    </a></th>
+        	<th>
+        	{% set typeSortingParams = sortingParams|merge({'sortedBy': 'filetype', 'order': nextOrder}) %}
+        	<a href="{{ path('document_view_category', typeSortingParams) }}">
+        	    {{'Type'|trans({},'document') }}
+        	    {% if currentSort == 'filetype' %}
+			        {{ icon |raw}}
+			    {% endif %}
+        	    </a></th>
+        	<th>
+        	{% set updateSortingParams = sortingParams|merge({'sortedBy': 'updatedAt', 'order': nextOrder}) %}
+        	<a href="{{ path('document_view_category', updateSortingParams) }}">
+        	{{'UpdatedAt'|trans({},'common') }}
+        	{% if currentSort == 'updatedAt' %}
+			        {{ icon |raw}}
+			    {% endif %}
+        	</a></th>
+        	{% if app.user and is_granted('ROLE_DOC_EDITOR') %}
+			<th>Actions</th>
+            {% endif %}
+        </tr>
+    </thead>
+    <tbody>
+    {% if currentCategory and currentCategory.getParent() %}
+    		<tr>
+			<td><a href="{{ path('document_view_category', { 'categoryId': currentCategory.getParent().id }) }}">
+            ..
+            <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
+            </a></td>    	
+            <td></td>    	
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+		</tr>
+    {% elseif currentCategory %}
+        <tr>
+			<td><a href="{{ path('document_view_category') }}">
+            ..
+            <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
+            </a></td>    	
+            <td></td>    	
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+		</tr>
+	{% endif %}
+    {% for document in documents %}
+        <tr> 
+        	{% if document.type == 1 %}
+        		<td>
+            		<a href="{{ path('document_view_category', { 'categoryId': document.id }) }}">
+                    	<span class="glyphicon glyphicon-folder-close" aria-hidden="true"></span>
+                        {{ document.name[:50] }}
+                    </a>
+                </td> 
+                 <td>
+                 </td> 
+                 <td>{{ document.description[:50] ~ '...' }}</td>   	
+           		 <td></td>
+        	{% else %}   	    	
+                <td>
+                	<a href="{{ path('document_show', { 'id': document.id }) }}">
+                    <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
+                    {{ document.name[:50] }}
+                	</a>
+                </td>
+                 <td><a href="{{ vich_uploader_asset(document, 'file') }}">Download</a></td>    	
+                <td>{{ document.description[:50] ~ '...' }}</td>
+                 <td>{{ (document.size/1000000)|number_format(2, '.', ',') ~' MB' }}</td>
+            {% endif %}    	
+           
+            <td>{{ document.fileType }}</td>
+           
+            <td>{% if document.updatedAt %}{{ document.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>  
+            {% if app.user and is_granted('ROLE_DOC_EDITOR') %}  	
+            <td>                		
+                        <a class="btn btn-info" href="{{ path('document_edit', { 'id': document.id }) }}">
+                        	                				<i class="glyphicon glyphicon-edit" aria-hidden="true"></i>
+                        </a>
+                                        		                			<form class="delete-form" action="{{ path('document_delete', { 'id': document.id }) }}" method="post">
+                               {{ form_widget(deleteForms[document.id],{'attr':{'class':'delete-form'}}) }}
+                                <button type="submit" class="btn btn-danger">
+                            	<i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
+                            	</button>
+                            	<input type="hidden" value="{{ document.name }}" name="document_name">
+                            	<input type="hidden" value="{{ document.type }}" name="document_type">
+                            </form>
+                		
+            </td>
+            {% endif %}
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<div class="paging">
+	{% set display = 5 %}
+	{% set params = {} %}
+	{% if currentSort %}
+	    {% set params = params|merge({'sortedBy':currentSort}) %}
+	{% endif %}
+	{% if currentOrder %}
+	    {% set params = params|merge({'order':currentOrder}) %}
+	{% endif %}
+	{% include '::paging.html.twig' with 
+	    {'total': total, 'pageSize':pageSize, 'currentPage':currentPage, 'display': display, 'params':params} only %}
+</div>
+{% if app.user and is_granted('ROLE_DOC_EDITOR') %}
+<div>
+		{% set curCatId = '' %}
+        {% if currentCategory%}
+			{% set curCatId = currentCategory.id %}
+		{% endif %}
+    	<a class="btn btn-success" href="{{ path('document_new',{'catId': curCatId}) }}">
+            <i class="fa fa-upload"></i>        
+             {{ 'New'|trans({},'common') }}
+            </a>
+            <a class="btn btn-success" href="{{ path('document_folder_new',{'catId': curCatId}) }}">
+            <i class="fa fa-folder"></i>        
+             {{ 'New category'|trans({},'document') }}
+            </a>
+{# 		<a class="btn btn-success" href="javascript:void(0)" #}
+{# 			onclick="newDocumentCategory('{{ curCatId }}', '{{ 'New category'|trans }}', #}
+{# 											'{{ 'Name'|trans }}', '{{ 'Description'|trans }}')">#}
+{#         <i class="glyphicon glyphicon-edit" aria-hidden="true"></i>        #}
+{#          {{ 'New category'|trans({},'document') }}#}
+{#         </a>#}
+</div>
+{% endif %}
+{% endblock %}
+{% block inlinescripts %}
+	<script type="text/javascript">
+        	$(document).ready(function(){
+				//Confirm delete
+        		$('.delete-form').find(':submit').click(function(e){
+        			 e.preventDefault();
+        			 var form = $(this).closest('form');
+        			 var itemName = form.find('[name="document_name"]').val();
+        			 var text = "{{ 'Are your sure to delelte'|trans({},'document') }}";
+        			 var type = form.find('[name="document_type"]').val();
+        			 if (type == 1) {
+        				 text = "{{ 'Are your sure to delelte'|trans({},'documentcategory') }}";
+        			 }
+        			 confirmDelete(form, text, itemName);
+        		});
+				
+        		//Test backbone
+        		var Document = Backbone.Model.extend({
+            		urlRoot: 'http://localhost/reports/web/app_dev.php/api/document',
+            		url: function(){
+            			return this.urlRoot + '/' + this.id;
+            		}
+            	});
+        		var DocumentList = Backbone.Collection.extend({
+            		model: Document,
+            		url: function(){
+            			if (this.options.catId != 'undefined' && this.options.catId != ''){
+            				return 'http://localhost/reports/web/app_dev.php/api/document' +
+            					'/' + this.options.catId;
+            			} else {
+            				return 'http://localhost/reports/web/app_dev.php/api/document';
+            			}
+            		}
+            	});
+        		var documents = new DocumentList();
+        		{% for document in documents %}
+        			var doc = new Document({
+        				name:'{{ document.name }}',
+        				id: '{{ document.id }}',
+        				description: '{{ document.description }}',
+        				fileType:'{{ document.fileType }}',
+        				updatedAt: '{{ document.updatedAt|date }}'
+            		});
+        			documents.push(doc);
+        		{% endfor %}
+        		console.log(documents);
+        	});
+    </script>
+{% endblock %}

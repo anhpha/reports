@@ -1,0 +1,71 @@
+{% extends 'CPSEAPIProjectBundle::layout.html.twig' %}
+
+
+{% set customActiveRoute = 'projectcategory' %}
+{% block title %} {{ 'ProjectCategory edit'|trans({},'projectcategory') }}{% endblock %}
+
+ {% block page_header_title %} {{ 'ProjectCategory edit'|trans({},'projectcategory') }}{% endblock %}
+
+{% block page_data %}
+
+<div class="col-md-12">
+    <div class="col-md-6">
+
+    <form action="{{ path('projectcategory_update', { 'id': document.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+        {{ form_errors(edit_form) }}
+                <div class="form-group">
+                        {% set parent_label %}{{ edit_form.parent.vars.name|capitalize|trans({},'projectcategory') }} {% endset %}
+                        {{ form_label(edit_form.parent,parent_label) }}
+                        {{ form_widget(edit_form.parent, {'attr':{'class':'form-control'}}) }}
+                        {{ form_errors(edit_form.parent) }}
+                    </div>             	            	            	            		<div class="form-group">
+                        {% set name_label %}{{ edit_form.name.vars.name|capitalize|trans({},'projectcategory') }} {% endset %}
+                        {{ form_label(edit_form.name,name_label) }}
+                        {{ form_widget(edit_form.name, {'attr':{'class':'form-control'}}) }}
+                        {{ form_errors(edit_form.name) }}
+                    </div>
+                            	            	            		<div class="form-group">
+                        {% set description_label %}{{ edit_form.description.vars.name|capitalize|trans({},'projectcategory') }} {% endset %}
+                        {{ form_label(edit_form.description,description_label) }}
+                        {{ form_widget(edit_form.description, {'attr':{'class':'form-control'}}) }}
+                        {{ form_errors(edit_form.description) }}
+                    </div>
+                    <div class="form-group">
+                        {% set documentcategory_label %}{{ edit_form.documentCategory.vars.name|capitalize|trans({},'projectcategory') }} {% endset %}
+                        {{ form_label(edit_form.documentCategory,documentcategory_label) }}
+                        {{ form_widget(edit_form.documentCategory, {'attr':{'class':'form-control'}}) }}
+                        {{ form_errors(edit_form.documentCategory) }}
+                    </div>
+                            	            	            		
+                            	            	{{ form_rest(edit_form) }}
+            <div class="col-md-12 no-padding clear">
+                <button type="submit" class="btn btn-success pull-right">
+                	<i class="glyphicon glyphicon-edit" aria-hidden="true"></i>        
+                     {{ 'Update'|trans({},'common') }}
+                </button>
+             </div>
+    </form>
+</div>
+</div>
+
+
+<div class="col-md-12 actions-list">
+</div>
+<div class="col-md-12 back-link">
+	<a href="{{ path('projectcategory') }}">
+            <i class="glyphicon glyphicon-arrow-left" aria-hidden="true"></i>
+             {{ 'Back to the list'|trans({},'common') }}
+        </a>
+</div>{% endblock %}
+{% block inlinescripts %}
+	<script type="text/javascript" src="{{ asset('js/item-select-field.js') }}"></script>
+	<script type="text/javascript">
+    	$(document).ready(function(){
+        	var title = '{{ 'Please choose folder'|trans({},'projectcategory') }}';
+        	var sourceUrl = '{{ path('api_listcat') }}';
+    		$('#cpse_api_projectbundle_projectcategorytype_documentCategory').referenceItemField(
+    	    		{'title':title, 'dataSource': sourceUrl});
+    	});
+    </script>
+	
+{% endblock %}

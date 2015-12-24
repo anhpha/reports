@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% trans %}Project category list{% endtrans %}{% endblock %}
+	
+{% block stylesheets %}
+	{{ parent() }}
+	
+	{% stylesheets 'css/*' filter='cssrewrite' %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+{% endblock %}
+
+{% block body %}
+{% block navbar %}
+	{% include '::topnavbar.html.twig' %}
+{% endblock %}
+{% block content %}
+	<div class="container-fluid full-height no-padding">
+		<div id="page_content" class = "full-height">
+		<div id="page_content_row" class = "full-height" >
+		    {% if app.user and is_granted('ROLE_ADMIN') %}
+    			{% block slidebar %}
+    			    {% include '::sidebar.html.twig' %}
+    			{% endblock %}
+		    {% endif %}
+			{% block page_content %}
+    			<div class="main">
+    				{% block page_header %}
+        				<h1>{% block page_header_title %}
+        				{% trans %}Project name{% endtrans %}
+        				{% endblock %}</h1>
+    				{% endblock %}
+    				
+    				{% block page_data %}{% endblock %}
+    			</div>
+			</div>
+			{% endblock %}
+		</div>
+	</div>
+{% endblock %}
+{% endblock %}
+
+{% block javascripts %}
+	{% javascripts
+    'js/jquery-1.11.3.js'
+	'js/bootstrap.js'
+	'js/bootstrap-datetimepicker.js'
+	'js/jquery-ui.js'
+	'js/jquery.ui.widget.js'
+	'js/jquery.iframe-transport.js'
+	'js/jquery.fileupload.js'
+	'js/bootbox.min.js'
+	'js/underscore.js'
+	'js/backbone.js'
+	'js/model.js'
+	'js/collection.js'
+	'js/report.js' %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}

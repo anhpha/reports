@@ -1,0 +1,8 @@
+parameters:
+#    cpseapi_project.example.class: CPSE\API\ProjectBundle\Example
+
+services:
+    #cpseapi_project.directorynamer:
+    #    class: CPSE\API\ProjectBundle\Service\DirectoryNamer
+    cpseapi_project.filenamer:
+        class: CPSE\API\ProjectBundle\Service\FileNamer

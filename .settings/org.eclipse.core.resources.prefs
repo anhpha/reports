@@ -1,0 +1,13 @@
+eclipse.preferences.version=1
+encoding//src/CPSE/API/ProjectBundle/Helper.php=UTF-8
+encoding//src/CPSE/API/ProjectBundle/Helpers/Helper.php=UTF-8
+encoding//src/CPSE/API/ProjectBundle/Resources/translations/common.vi.xlf=UTF-8
+encoding//src/CPSE/API/ProjectBundle/Resources/translations/document.vi.xlf=UTF-8
+encoding//src/CPSE/API/ProjectBundle/Resources/translations/documentcategory.vi.xlf=UTF-8
+encoding//src/CPSE/API/ProjectBundle/Resources/translations/messages.vi.xlf=UTF-8
+encoding//src/CPSE/API/ProjectBundle/Resources/translations/project.vi.xlf=UTF-8
+encoding//src/CPSE/API/ProjectBundle/Resources/translations/projectcategory.vi.xlf=UTF-8
+encoding//src/CPSE/API/ProjectBundle/Resources/translations/task.vi.xlf=UTF-8
+encoding//src/CPSE/API/ProjectBundle/Service/DirectoryNamer.php=UTF-8
+encoding//src/CPSE/API/UserBundle/Resources/translations/apiuser.vi.xlf=UTF-8
+encoding//src/CPSE/API/UserBundle/Resources/translations/messages.fr.xlf=UTF-8

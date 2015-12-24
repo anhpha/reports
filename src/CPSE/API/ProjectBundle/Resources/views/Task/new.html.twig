@@ -1,0 +1,96 @@
+{% extends 'CPSEAPIProjectBundle::layout.html.twig' %}
+
+{% set customActiveRoute = 'project' %}
+
+{% block title %} {{ 'Task creation'|trans({},'task') }}{% endblock %}
+
+ {% block page_header_title %} {{ 'Task creation'|trans({},'task') }}{% endblock %}
+
+{% block page_data %}
+
+<div class="col-md-12">
+    <div class="col-md-6">
+        <form action="" method="post" {{ form_enctype(form) }}>
+            {{ form_errors(form) }}
+                   <div class="form-group">
+                        {% set name_label %}{{ form.name.vars.name|capitalize|trans({},'task') }} {% endset %}
+                        {{ form_label(form.name,name_label) }}
+                        {{ form_widget(form.name, {'attr':{'class':'form-control'}}) }}
+                        {{ form_errors(form.name) }}
+                    </div>
+                            	            	            		<div class="form-group">
+                        {% set desription_label %}{{ form.desription.vars.name|capitalize|trans({},'task') }} {% endset %}
+                        {{ form_label(form.desription,desription_label) }}
+                        {{ form_widget(form.desription, {'attr':{'class':'form-control'}}) }}
+                        {{ form_errors(form.desription) }}
+                    </div>
+                    <div class="col-md-12 row">
+                        <div class="form-group col-md-4 row">
+                            {% set from_label %}{{ form.from.vars.name|capitalize|trans({},'task') }} {% endset %}
+                            {{ form_label(form.from,from_label) }}
+                            {{ form_widget(form.from, {'attr':{'class':'form-control'}}) }}
+                            {{ form_errors(form.from) }}
+                        </div>
+                        <div class="form-group col-md-4 row inline-control">
+                            {% set to_label %}{{ form.to.vars.name|capitalize|trans({},'task') }} {% endset %}
+                            {{ form_label(form.to,to_label) }}
+                            {{ form_widget(form.to, {'attr':{'class':'form-control'}}) }}
+                            {{ form_errors(form.to) }}
+                        </div>
+                    </div>
+                    <div class="col-md-12 row">
+                        <div class="form-group col-md-6 row">
+                            {% set assigned_to_label %}{{ form.assigned_to.vars.name|capitalize|trans({},'task') }} {% endset %}
+                            {{ form_label(form.assigned_to,assigned_to_label) }}
+                            {{ form_widget(form.assigned_to, {'attr':{'class':'form-control'}}) }}
+                            {{ form_errors(form.assigned_to) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                    	<div id="cpse_api_projectbundle_tasktype_related_docs" data-prototype="{{ form_widget(form.related_docs.vars.prototype)|e }}">
+                            {% set related_label %}{{ form.related_docs.vars.name|capitalize|trans({},'task') }} {% endset %}
+                            {{ form_label(form.related_docs,related_label) }}
+                            <a class="btn-sm btn-primary" href="#" id="add_docs_btn">
+                            	<i class="glyphicon glyphicon-plus" aria-hidden="true"></i>
+                            	{{ 'Add doc'|trans({}, 'task') }}
+                            </a>
+                            
+                            {{ form_errors(form.related_docs) }}
+                        </div>
+                    </div>
+                    {{ form_widget(form._token) }}
+            <p>
+                <button type="submit" class="btn btn-success pull-right">
+                	<i class="glyphicon glyphicon-edit" aria-hidden="true"></i>        
+                     {{ 'Add'|trans({},'common') }}
+                </button>
+            </p>
+        </form>
+    </div>
+</div>
+<div class="col-md-12 actions-list">
+</div>
+<div class="col-md-12 back-link">
+	<a href="{{ path('task', {'projectId': projectId}) }}">
+            <i class="glyphicon glyphicon-arrow-left" aria-hidden="true"></i>
+             {{ 'Back to the list'|trans({},'common') }}
+        </a>
+</div>{% endblock %}
+{% block inlinescripts %}
+	{{ form_javascript(form) }}
+	<script type="text/javascript" src="{{ asset('js/combobox.js') }}"></script>
+	<script type="text/javascript">
+        $(document).ready(function(){
+            var notFoundError = "{{ 'did not match any item'|trans({}, 'task') }}";
+			$('[id$="assigned_to"]').combobox({'notFoundError':notFoundError});
+        });
+    </script>
+	<script type="text/javascript">
+	jQuery(document).ready(function() {
+		var collectionEl = $('#cpse_api_projectbundle_tasktype_related_docs');
+		var addEl = $('#add_docs_btn');
+		var itemTitle = '{{ 'Document'|trans({}, 'task') }}';
+		initCollectionData(collectionEl, addEl, itemTitle);
+	});
+    </script>
+{% endblock %}

@@ -1,0 +1,5 @@
+<serializer>  
+    <class name="CPSE\API\UserBundle\Document\APIUser" exclusion-policy="all">  
+        <property name="fullName" type="string" expose="true" read-only="true"></property>  
+    </class>  
+</serializer>

@@ -1,0 +1,42 @@
+{% extends 'CPSEAPIProjectBundle::layout.html.twig' %}
+
+{% set customActiveRoute = 'document_view_category' %}
+
+{% block title %} {{ 'Categories list'|trans({},'document') }}{% endblock %}
+
+ {% block page_header_title %} {{ 'Categories list'|trans({},'document') }}
+  {% endblock %}
+
+{% block page_data %}
+
+<table class="table table-striped">
+    <thead>
+		<tr>						            	
+			
+        	<th>{{'Name'|trans({},'document') }}</th>
+        	<th>{{'Path'|trans({},'document') }}</th>
+        	<th>{{'Description'|trans({},'document') }}</th>
+        	<th>{{'UpdatedAt'|trans({},'common') }}</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for document in data.children %}
+        <tr> 
+        	<td>
+            		<a href="{{ path('document_view_category', { 'categoryId': document.id }) }}">
+                    	<span class="glyphicon glyphicon-folder-close" aria-hidden="true"></span>
+                        {{ document.name[:50] }}
+                    </a>
+                </td> 
+                 <td>
+                 </td> 
+                 <td>{{ document.description[:50] ~ '...' }}</td>  
+           
+            <td>{% if document.updatedAt %}{{ document.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>  
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
+{% block inlinescripts %}
+{% endblock %}

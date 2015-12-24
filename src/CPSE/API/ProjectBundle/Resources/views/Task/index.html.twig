@@ -1,0 +1,118 @@
+{% extends 'CPSEAPIProjectBundle::layout.html.twig' %}
+
+{% set customActiveRoute = 'project' %}
+
+{% block title %} {{ 'Task list'|trans({},'task') }}{% endblock %}
+
+{% block page_header %}
+    <div class="project-summary">
+    	<h1>{{ project.getName }}</h1>
+        <div class="project-description">{{ project.getDescription }}</div>
+    </div>
+{% endblock %}
+
+{% block page_data %}
+{% set created, assigned, pending, finished = constant('CPSE\\API\\ProjectBundle\\Document\\Task::CREATED'),
+                                            constant('CPSE\\API\\ProjectBundle\\Document\\Task::ASSIGNED'),
+                                            constant('CPSE\\API\\ProjectBundle\\Document\\Task::PENDING'),
+                                            constant('CPSE\\API\\ProjectBundle\\Document\\Task::FINISHED') %}
+{% set statusClassArray = {
+       (created):'label label-default',
+       (assigned):'label label-primary',
+       (pending):'label label-info',
+       (finished):'label label-success' } %}
+{% include '::projecttopnavbar.html.twig' %}
+<div class="project-infor col-md-12">
+    <div class="col-md-12">
+    	<div class="col-md-8"></div>
+    	<div class="col-md-4">
+    		<a class="btn btn-success pull-right" href="{{ path('task_new', {'projectId': project.id}) }}">
+                <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>        
+                 {{ 'New'|trans({},'common') }}
+            </a>
+    	</div>
+    </div>
+    <table class="table table-striped data-table">
+        <thead>
+    						            	<th>{{'Name'|trans({},'task') }}</th>
+    						            	<th>{{'Progress'|trans({},'task') }}</th>
+    						            	<th>{{'Deadline'|trans({},'task') }}</th>
+    						            	<th>{{'Assigned_to'|trans({},'task') }}</th>
+    						            	<th>{{'Status'|trans({},'task') }}</th>
+    						            	<th>{{'Updatedat'|trans({},'task') }}</th>
+    			
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        <input type="hidden" id="confirm_delete_text" value="{{ 'Are you sure to delete item'|trans({},'task') }}">
+        {% for document in documents %}
+        	{% set statusClass = statusClassArray[document.status] %}
+            <tr>    	    	
+                <td><a href="{{ path('task_show', { 'projectId': project.id, 'id': document.id }) }}">{{ document.name }}</a></td>    	
+                <td>
+                    {% set barClass = 'progress-bar progress-bar-info' %}
+                	{% set barCurrent = timeSpent[document.id] %}
+                	{% if barCurrent >= 100 %}
+                		{% if document.status == constant('CPSE\\API\\ProjectBundle\\Document\\Task::FINISHED') %}
+                			{% set barClass = 'progress-bar progress-bar-success' %}
+                		{% else %}
+                			{% set barClass = 'progress-bar progress-bar-danger' %}
+                			{% set statusClass = 'label label-danger' %}
+                		{% endif %}
+                	{% endif %}
+                	{% if document.status == constant('CPSE\\API\\ProjectBundle\\Document\\Task::FINISHED') %}
+                			{% set barClass = 'progress-bar progress-bar-success' %}
+                	{% endif %}
+                	<div class="progress progress-small">
+                      <div class="{{ barClass }}" role="progressbar" aria-valuenow="{{ barCurrent }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ barCurrent }}%">
+                        <span class="sr-only">{{ barCurrent }}% spent</span>
+                      </div>
+                    </div>
+                </td>
+                <td>{% if document.to %}{{ document.to|date('d/m/Y') }}{% endif %}</td>    	
+                <td>{{ document.assignedto }}</td>    	
+                <td><span class="{{ statusClass }}"> {{ statusArray[document.status] }} </span></td>    	
+                <td>{% if document.updatedAt %}{{ document.updatedAt|date('d/m/Y H:i:s') }}{% endif %}</td>
+                <td>                		
+                            <a class="btn btn-info" href="{{ path('task_changestatus', { 'projectId': project.id,'id': document.id }) }}">
+                        	 	<i class="glyphicon glyphicon-edit" aria-hidden="true"></i>
+                        	 	{{ 'Status'|trans({},'common') }}
+                            </a>
+                            <a class="btn btn-info" href="{{ path('task_edit', { 'projectId': project.id,'id': document.id }) }}">
+                            	<i class="glyphicon glyphicon-cog" aria-hidden="true"></i>
+                            </a>
+                            <form class="delete-form" action="{{ path('task_delete', { 'projectId': project.id,'id': document.id }) }}" method="post">
+                                   {{ form_widget(deleteForms[document.id],{'attr':{'class':'delete-form'}}) }}
+                                    <button type="submit" class="btn btn-danger">
+                                	<i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
+                                	</button>
+                                	<input type="hidden" value="{{ document.name }}" name="document_name">
+                            </form>
+                    		
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+<div class="col-md-12 back-link">
+	<a href="{{ path('project') }}">
+            <i class="glyphicon glyphicon-arrow-left" aria-hidden="true"></i>
+             {{ 'Back to the list'|trans({},'common') }}
+        </a>
+</div>
+{% endblock %}
+{% block inlinescripts %}
+	<script type="text/javascript">
+        	$(document).ready(function(){
+        		$('.delete-form').find(':submit').click(function(e){
+        			 e.preventDefault();
+        			 var form = $(this).closest('form');
+        			 var itemName = form.find('[name="document_name"]').val();
+        			 var text = $('#confirm_delete_text').val();
+        			 confirmDelete(form, text, itemName);
+        		});
+        	});
+    </script>
+{% endblock %}

@@ -1,0 +1,114 @@
+{% extends 'CPSEAPIProjectBundle::layout.html.twig' %}
+
+{% set customActiveRoute = 'project' %}
+
+{% block title %} {{ 'Task'|trans({},'task') }}{% endblock %}
+
+ {% block page_header_title %} {{ 'Task'|trans({},'task') }}{% endblock %}
+
+{% block page_data %}
+{% set created, assigned, pending, finished = constant('CPSE\\API\\ProjectBundle\\Document\\Task::CREATED'),
+                                            constant('CPSE\\API\\ProjectBundle\\Document\\Task::ASSIGNED'),
+                                            constant('CPSE\\API\\ProjectBundle\\Document\\Task::PENDING'),
+                                            constant('CPSE\\API\\ProjectBundle\\Document\\Task::FINISHED') %}
+{% set statusClassArray = {
+       (created):'label label-default',
+       (assigned):'label label-primary',
+       (pending):'label label-info',
+       (finished):'label label-success' } %}
+<table class="table tabl-striped">
+    <tbody>				       
+        <tr>
+            <th>{{'Name'|trans({},'task') }}</th>
+            <td>{{ document.name }}</td>
+        </tr>
+        		        <tr>
+            <th>{{'Desription'|trans({},'task') }}</th>
+            <td><textarea class="text-data col-md-12" rows="5" cols="10" readonly>{{ document.desription }}</textarea>
+            </td>
+        </tr>
+        <tr>
+            <th>{{'Related docs'|trans({},'task') }}</th>
+            <td>
+                
+            	{% for relDoc in document.relateddocs %}
+            		<div><a href="{{ vich_uploader_asset(relDoc, 'file') }}">{{ relDoc.name }}</a></div>
+            	{% endfor %}
+            </td>
+        </tr>
+        <tr>
+            <th>{{'Products'|trans({},'task') }}</th>
+            <td>
+                
+            	{% for product in document.products %}
+            		<div><a href="{{ vich_uploader_asset(product, 'file') }}">{{ product.name }}</a></div>
+            	{% endfor %}
+            </td>
+        </tr>
+        <tr>
+			
+            <th>{{'Last submit'|trans({},'task') }}</th>
+            {% for comment in document.comments %}
+            	{% if loop.last %}
+            		<td>{{ comment.content }}</td>
+            	{% endif %}
+            {% endfor %}
+            
+        </tr>
+        		        <tr>
+            <th>{{'From'|trans({},'task') }}</th>
+            <td>{{ document.from|date('d/m/Y') }}</td>
+        </tr>
+        		        <tr>
+            <th>{{'To'|trans({},'task') }}</th>
+            <td>{{ document.to|date('d/m/Y') }}</td>
+        </tr>
+		<tr>
+			
+            <th>{{'Assigned_to'|trans({},'task') }}</th>
+            <td>{{ document.assignedto }}</td>
+        </tr>
+        <tr>
+        	{% set statusClass = statusClassArray[document.status] %}
+            <th>{{'Status'|trans({},'task') }}</th>
+            <td><span class="{{ statusClass }}"> {{ statusArray[document.status] }} </span></td>
+        </tr>
+        		        <tr>
+            <th>{{'Finished_on'|trans({},'task') }}</th>
+            <td>{% if document.finishedon %}{{ document.finishedon|date('d/m/Y') }}{% endif %}</td>
+        </tr>
+        		        <tr>
+            <th>{{'Updated_by'|trans({},'task') }}</th>
+            <td>{{ document.updatedby }}</td>
+        </tr>
+        		        <tr>
+            <th>{{'Created_by'|trans({},'task') }}</th>
+            <td>{{ document.createdby }}</td>
+        </tr>
+        		        <tr>
+            <th>{{'Createdat'|trans({},'task') }}</th>
+            <td>{{ document.createdAt|date('d/m/Y H:i:s') }}</td>
+        </tr>
+        		        <tr>
+            <th>{{'Updatedat'|trans({},'task') }}</th>
+            <td>{{ document.updatedAt|date('d/m/Y H:i:s') }}</td>
+        </tr>
+        
+    </tbody>
+</table>
+{% if app.user and is_granted('ROLE_USER') and document.status == pending %}
+<div class="col-md-12 actions-list">
+    <div class="action">
+    	<a class="btn btn-success" href="{{ path('document_edit', { 'id': document.id }) }}">
+            <i class="glyphicon glyphicon-ok" aria-hidden="true"></i>
+            {{ 'Approved'|trans({},'task') }}
+        </a>
+    </div>
+</div>
+{% endif %}
+<div class="col-md-12 back-link">
+	<a href="{{ path('task') }}">
+            <i class="glyphicon glyphicon-arrow-left" aria-hidden="true"></i>
+             {{ 'Back to the list'|trans({},'common') }}
+        </a>
+</div>{% endblock %}

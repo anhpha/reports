@@ -1,0 +1,119 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="1">
+                <source>Profile</source>
+                <target>Thông tin người dùng</target>
+            </trans-unit>
+            <trans-unit id="2">
+                <source>profile.show.username</source>
+                <target>Tên đăng nhập</target>
+            </trans-unit>
+            <trans-unit id="3">
+                <source>profile.show.email</source>
+                <target>Email</target>
+            </trans-unit>
+            <trans-unit id="4">
+                <source>profile.show.fullname</source>
+                <target>Tên đầy đủ</target>
+            </trans-unit>
+            <trans-unit id="5">
+                <source>APIUser list</source>
+                <target>Danh sách người dùng</target>
+            </trans-unit>
+            <trans-unit id="6">
+                <source>Email</source>
+                <target>Email</target>
+            </trans-unit>
+            <trans-unit id="7">
+                <source>Enabled</source>
+                <target>Cho phép đăng nhập</target>
+            </trans-unit>
+            <trans-unit id="8">
+                <source>Lastlogin</source>
+                <target>Lần đăng nhập cuối cùng</target>
+            </trans-unit>
+            <trans-unit id="9">
+                <source>Roles</source>
+                <target>Chức danh</target>
+            </trans-unit>
+            <trans-unit id="10">
+                <source>Fullname</source>
+                <target>Tên đầy đủ</target>
+            </trans-unit>
+            <trans-unit id="11">
+                <source>Locked</source>
+                <target>Khóa</target>
+            </trans-unit>
+            <trans-unit id="12">
+                <source>Profile</source>
+                <target>Cá nhân</target>
+            </trans-unit>
+            <trans-unit id="13">
+                <source>Username</source>
+                <target>Tên đăng nhập</target>
+            </trans-unit>
+            <trans-unit id="14">
+                <source>APIUser edit</source>
+                <target>Cập nhật thông tin người dùng</target>
+            </trans-unit>
+            <trans-unit id="15">
+                <source>APIUser edit</source>
+                <target>Cập nhật thông tin người dùng</target>
+            </trans-unit>
+            <trans-unit id="16">
+                <source>Editor</source>
+                <target>Quản lý tài liệu</target>
+            </trans-unit>
+            <trans-unit id="17">
+                <source>Deputy Manager</source>
+                <target>Phó trưởng phòng</target>
+            </trans-unit>
+            <trans-unit id="18">
+                <source>Manager</source>
+                <target>Trưởng phòng</target>
+            </trans-unit>
+            <trans-unit id="19">
+                <source>Deputy Director</source>
+                <target>Phó giám đốc</target>
+            </trans-unit>
+            <trans-unit id="20">
+                <source>Director</source>
+                <target>Giám đốc</target>
+            </trans-unit>
+            <trans-unit id="21">
+                <source>APIUser creation</source>
+                <target>Thêm mới nhân viên</target>
+            </trans-unit>
+            <trans-unit id="22">
+                <source>Password</source>
+                <target>Mật khẩu</target>
+            </trans-unit>
+            <trans-unit id="23">
+                <source>Retype password</source>
+                <target>Xác nhận mật khẩu</target>
+            </trans-unit>
+            <trans-unit id="24">
+                <source>Modify profile</source>
+                <target>Thay đổi thông tin cá nhân</target>
+            </trans-unit>
+            <trans-unit id="25">
+                <source>Email</source>
+                <target>Email</target>
+            </trans-unit>
+            <trans-unit id="26">
+                <source>profile.edit.submit</source>
+                <target>Cập nhật</target>
+            </trans-unit>
+            <trans-unit id="27">
+                <source>Profile</source>
+                <target>Thông tin cá nhân</target>
+            </trans-unit>
+            <trans-unit id="28">
+                <source>Change password</source>
+                <target>Thay đổi mật khẩu</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

@@ -1,0 +1,50 @@
+{% extends 'CPSEAPIProjectBundle::layout.html.twig' %}
+
+
+
+{% block title %} {{ 'DocumentCategory creation'|trans({},'documentcategory') }}{% endblock %}
+
+ {% block page_header_title %} {{ 'DocumentCategory creation'|trans({},'documentcategory') }}{% endblock %}
+
+{% block page_data %}
+
+<div class="col-md-12">
+    <div class="col-md-6">
+        <form action="{{ path('documentcategory_create') }}" method="post" {{ form_enctype(form) }}>
+            {{ form_errors(form) }}
+            	            	            	            	            		<div class="form-group">
+                        {% set parent_label %}{{ form.parent.vars.name|capitalize|trans({},'documentcategory') }} {% endset %}
+                        {{ form_label(form.parent,parent_label) }}
+                        {{ form_widget(form.parent, {'attr':{'class':'form-control'}}) }}
+                        {{ form_errors(form.parent) }}
+                    </div>
+                            	            	            		<div class="form-group">
+                        {% set name_label %}{{ form.name.vars.name|capitalize|trans({},'documentcategory') }} {% endset %}
+                        {{ form_label(form.name,name_label) }}
+                        {{ form_widget(form.name, {'attr':{'class':'form-control'}}) }}
+                        {{ form_errors(form.name) }}
+                    </div>
+                            	            	            		<div class="form-group">
+                        {% set description_label %}{{ form.description.vars.name|capitalize|trans({},'documentcategory') }} {% endset %}
+                        {{ form_label(form.description,description_label) }}
+                        {{ form_widget(form.description, {'attr':{'class':'form-control'}}) }}
+                        {{ form_errors(form.description) }}
+                    </div>
+                            	            	{{ form_rest(form) }}
+            <p>
+                <button type="submit" class="btn btn-success pull-right">
+                	<i class="glyphicon glyphicon-edit" aria-hidden="true"></i>        
+                     {{ 'Add'|trans({},'common') }}
+                </button>
+            </p>
+        </form>
+    </div>
+</div>
+<div class="col-md-12 actions-list">
+</div>
+<div class="col-md-12 back-link">
+	<a href="{{ path('documentcategory') }}">
+            <i class="glyphicon glyphicon-arrow-left" aria-hidden="true"></i>
+             {{ 'Back to the list'|trans({},'common') }}
+        </a>
+</div>{% endblock %}

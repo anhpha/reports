@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="1">
+                <source>Project management tool</source>
+                <target>Quản lý tài liệu</target>
+            </trans-unit>
+            <trans-unit id="2">
+                <source>Toggle navigation</source>
+                <target>Đóng menu</target>
+            </trans-unit>
+            <trans-unit id="3">
+                <source>Dashboard</source>
+                <target>Dashboard</target>
+            </trans-unit>
+            <trans-unit id="4">
+                <source>Edit</source>
+                <target>Chỉnh sửa</target>
+            </trans-unit>
+            <trans-unit id="5">
+                <source>Delete</source>
+                <target>Xóa</target>
+            </trans-unit>
+            <trans-unit id="6">
+                <source>New</source>
+                <target>Thêm mới</target>
+            </trans-unit>
+            <trans-unit id="7">
+                <source>Created_by</source>
+                <target>Tạo bởi</target>
+            </trans-unit>
+            <trans-unit id="8">
+                <source>Created_on</source>
+                <target>Tạo lúc</target>
+            </trans-unit>
+            <trans-unit id="9">
+                <source>Back to the list</source>
+                <target>Trở lại</target>
+            </trans-unit>
+            <trans-unit id="10">
+                <source>Update</source>
+                <target>Cập nhật</target>
+            </trans-unit>
+            <trans-unit id="11">
+                <source>Add</source>
+                <target>Thêm</target>
+            </trans-unit>
+            <trans-unit id="12">
+                <source>CreatedBy</source>
+                <target>Tạo bởi</target>
+            </trans-unit>
+            <trans-unit id="13">
+                <source>CreatedAt</source>
+                <target>Tạo ngày</target>
+            </trans-unit>
+            <trans-unit id="14">
+                <source>UpdatedAt</source>
+                <target>Cập nhật ngày</target>
+            </trans-unit>
+            <trans-unit id="15">
+                <source>UpdatedBy</source>
+                <target>Cập nhật bởi</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

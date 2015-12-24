@@ -1,0 +1,19 @@
+{% trans_default_domain 'apiuser' %}
+
+<table class="table table-striped">
+
+	<tbody>		       
+		 <tr>
+            <th>{{ 'profile.show.username'|trans }}</th>
+            <td>{{ user.username }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'profile.show.email'|trans }}</th>
+            <td>{{ user.email }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'profile.show.fullname'|trans }}</th>
+            <td>{{ user.fullname }}</td>
+        </tr>
+    </tbody>
+</table>

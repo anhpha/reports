@@ -1,0 +1,20 @@
+services:
+    # KernelRequest listener
+    extension.listener:
+        class: CPSE\API\ProjectBundle\Listener\DoctrineExtensionListener
+        calls:
+            - [ setContainer, [ @service_container ] ]
+        tags:
+            # loggable hooks user username if one is in security context
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+    gedmo.listener.timestampable:
+        class: Gedmo\Timestampable\TimestampableListener
+        tags:
+            - { name: doctrine_mongodb.odm.event_subscriber, connection: default }
+        calls:
+            - [ setAnnotationReader, [ "@annotation_reader" ] ]
+    gedmo.listener.Blameable:
+        class: Gedmo\Blameable\BlameableListener
+        tags:
+            - { name: doctrine_mongodb.odm.event_subscriber, connection: default }
+

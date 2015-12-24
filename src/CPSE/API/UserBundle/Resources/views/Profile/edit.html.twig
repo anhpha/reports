@@ -1,0 +1,10 @@
+{% extends "CPSEAPIUserBundle::layout.html.twig" %}
+
+{% set customActiveRoute = 'apiuser' %}
+{% block title %} {{ 'Modify profile'|trans({},'apiuser') }}{% endblock %}
+
+ {% block page_header_title %} {{ 'Modify profile'|trans({},'apiuser') }}{% endblock %}
+
+{% block page_data %}
+{% include "CPSEAPIUserBundle:Profile:edit_content.html.twig" %}
+{% endblock page_data %}

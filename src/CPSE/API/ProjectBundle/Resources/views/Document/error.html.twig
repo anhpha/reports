@@ -1,0 +1,20 @@
+{% extends 'CPSEAPIProjectBundle::layout.html.twig' %}
+
+{% set customActiveRoute = 'document_view_category' %}
+{% trans_default_domain 'document' %}
+{% block title %} {{ 'Error'|trans({},'document') }}{% endblock %}
+
+ {% block page_header_title %} {{ 'Error'|trans({},'document') }}
+  {% endblock %}
+
+{% block page_data %}
+<div class="col-md-12">
+	<h3>{{ 'There is error while proccesing requuest'|trans }}</h3>
+	<div>{% if error is defined %}
+			{{ error }}
+		{% endif %}
+	</div>
+</div>
+{% endblock %}
+{% block inlinescripts %}
+{% endblock %}

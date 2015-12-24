@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="1">
+                <source>Document list</source>
+                <target>Danh sách tài liệu</target>
+            </trans-unit>
+            <trans-unit id="2">
+                <source>Category_id</source>
+                <target>Thuộc loại</target>
+            </trans-unit>
+            <trans-unit id="3">
+                <source>Name</source>
+                <target>Tên</target>
+            </trans-unit>
+            <trans-unit id="4">
+                <source>Description</source>
+                <target>Mô tả</target>
+            </trans-unit>
+            <trans-unit id="5">
+                <source>Document edit</source>
+                <target>Cập nhật thông tin tài liệu</target>
+            </trans-unit>
+            <trans-unit id="6">
+                <source>Document creation</source>
+                <target>Thêm mới tài liệu</target>
+            </trans-unit>
+            <trans-unit id="7">
+                <source>Document</source>
+                <target>Thông tin tài liệu</target>
+            </trans-unit>
+            <trans-unit id="8">
+                <source>Path</source>
+                <target>Link</target>
+            </trans-unit>
+            <trans-unit id="9">
+                <source>Status</source>
+                <target>Trạng thái</target>
+            </trans-unit>
+            <trans-unit id="10">
+                <source>File</source>
+                <target>Upload tập tin</target>
+            </trans-unit>
+            <trans-unit id="11">
+                <source>Search results</source>
+                <target>Kết quả tìm cho từ khóa</target>
+            </trans-unit>
+            <trans-unit id="12">
+                <source>belong to</source>
+                <target>thuộc loại</target>
+            </trans-unit>
+            <trans-unit id="13">
+                <source>Unable to find this document</source>
+                <target>Tài liệu không tồn tại</target>
+            </trans-unit>
+            <trans-unit id="14">
+                <source>This document is using by an other</source>
+                <target>Tài liệu đang được sử dụng</target>
+            </trans-unit>
+            <trans-unit id="15">
+                <source>Document category creation</source>
+                <target>Thêm loại tài liệu mới</target>
+            </trans-unit>
+            <trans-unit id="16">
+                <source>New category</source>
+                <target>Thêm loại tài liệu mới</target>
+            </trans-unit>
+            <trans-unit id="17">
+                <source>Document category list</source>
+                <target>Danh sách tất cả tài liệu và loại tài liệu</target>
+            </trans-unit>
+            <trans-unit id="18">
+                <source>Are your sure to delelte</source>
+                <target>Bạn có chắc chắn muốn xóa tài liệu </target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

@@ -1,0 +1,63 @@
+{% extends 'CPSEAPIProjectBundle::layout.html.twig' %}
+
+
+{% set customActiveRoute = 'document_view_category' %}
+{% block title %} {{ 'Document edit'|trans({},'document') }}{% endblock %}
+
+ {% block page_header_title %} {{ 'Document edit'|trans({},'document') }}{% endblock %}
+
+{% block page_data %}
+
+<div class="col-md-12">
+    <div class="col-md-6">
+
+    <form action="{{ path('document_update', { 'id': document.id }) }}" method="post" {{ form_enctype(edit_form) }} onsubmit="return setWaitingStatus(this)">
+        {{ form_errors(edit_form) }}
+                            	            	            	            		
+                   <div class="form-group">
+                        {% set name_label %}{{ edit_form.name.vars.name|capitalize|trans({},'document') }} {% endset %}
+                        {{ form_label(edit_form.name,name_label) }}
+                        {{ form_widget(edit_form.name, {'attr':{'class':'form-control'}}) }}
+                        {{ form_errors(edit_form.name) }}
+                    </div>
+                    {% if edit_form.type.vars.value == 1 %}       	   		         	            		
+            		<div class="form-group">
+                        {% set path_label %}{{ edit_form.file.vars.name|capitalize|trans({},'document') }} {% endset %}
+                        {{ form_label(edit_form.file,path_label) }}
+                        {{ form_widget(edit_form.file, {'attr':{'class':'form-control'}}) }}
+                        {{ form_errors(edit_form.file) }}
+                        
+                    </div>
+                    {% endif %}
+                    <div class="form-group">
+                        {% set description_label %}{{ edit_form.description.vars.name|capitalize|trans({},'document') }} {% endset %}
+                        {{ form_label(edit_form.description,description_label) }}
+                        {{ form_widget(edit_form.description, {'attr':{'class':'form-control'}}) }}
+                        {{ form_errors(edit_form.description) }}
+                    </div>
+                    <input type="hidden" name="returnPath" id="returnPath" value="{{ returnPath }}">
+                            	            	{{ form_rest(edit_form) }}
+            <p>
+                <button type="submit" class="btn btn-success pull-right">
+                	<i class="glyphicon glyphicon-edit" aria-hidden="true"></i>        
+                     {{ 'Update'|trans({},'common') }}
+                </button>
+            </p>
+    </form>
+    
+</div>
+</div>
+
+
+<div class="col-md-12 actions-list">
+</div>
+<div class="col-md-12 back-link">
+	<a href="javascript:history.go(-1)">
+            <i class="glyphicon glyphicon-arrow-left" aria-hidden="true"></i>
+             {{ 'Back to the list'|trans({},'common') }}
+        </a>
+</div>{% endblock %}
+{% block inlinescripts %}
+    {{ form_javascript(edit_form) }}
+    
+{% endblock %}

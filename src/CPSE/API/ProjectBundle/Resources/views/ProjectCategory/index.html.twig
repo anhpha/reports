@@ -1,0 +1,66 @@
+{% extends 'CPSEAPIProjectBundle::layout.html.twig' %}
+
+{% set customActiveRoute = 'projectcategory' %}
+
+{% block title %} {{ 'ProjectCategory list'|trans({},'projectcategory') }}{% endblock %}
+
+ {% block page_header_title %} {{ 'ProjectCategory list'|trans({},'projectcategory') }}{% endblock %}
+
+{% block page_data %}
+
+
+<table class="table table-striped">
+    <thead>
+        <tr>						            	<th>{{'Name'|trans({},'projectcategory') }}</th>
+						            	<th>{{'Description'|trans({},'projectcategory') }}</th>
+						            	<th>{{'CreatedBy'|trans({},'common') }}</th>
+						            	<th>{{'CreatedAt'|trans({},'common') }}</th>
+			
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for document in documents %}
+        <tr>    	    	
+            <td><a href="{{ path('projectcategory_show', { 'id': document.id }) }}">{{ document.name }}</a></td>    	
+            <td>{{ document.description[:100] ~ '...'  }}</td>    	
+            <td>{{ document.createdBy }}</td>    	
+            <td>{% if document.createdAt %}{{ document.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+            <td>                		
+                        <a class="btn btn-info" href="{{ path('projectcategory_edit', { 'id': document.id }) }}">
+                        	                				<i class="glyphicon glyphicon-edit" aria-hidden="true"></i>
+                			                             {{ 'Edit'|trans({},'common') }}
+                        </a>
+                                        		                			<form class="delete-form" action="{{ path('projectcategory_delete', { 'id': document.id }) }}" method="post">
+                               {{ form_widget(deleteForms[document.id],{'attr':{'class':'delete-form'}}) }}
+                                <button type="submit" class="btn btn-danger">
+                            	<i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
+                            	 {{ 'Delete'|trans({},'common') }}
+                            	</button>
+                            	<input type="hidden" value="{{ document.name }}" name="document_name">
+                            </form>
+                		
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<div><a class="btn btn-success" href="{{ path('projectcategory_new') }}">
+    <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>        
+     {{ 'New'|trans({},'common') }}
+        </a></div>
+{% endblock %}
+{% block inlinescripts %}
+	<script type="text/javascript">
+        	$(document).ready(function(){
+        		$('.delete-form').find(':submit').click(function(e){
+        			 e.preventDefault();
+        			 var form = $(this).closest('form');
+        			 var itemName = form.find('[name="document_name"]').val();
+        			 var text = "{{ 'Are your sure to delelte'|trans({},'projectcategory') }}";
+        			 confirmDelete(form, text, itemName);
+        		});
+        	});
+    </script>
+{% endblock %}
