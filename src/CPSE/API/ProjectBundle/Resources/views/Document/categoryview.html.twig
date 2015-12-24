@@ -11,6 +11,7 @@
           		    {{ 'belong to'|trans({},'document') ~ ' "' ~ currentCategory ~'"' }}
                 {% endif %} 
               {% endblock %}
+              {% if app.user and is_granted('ROLE_DOC_EDITOR') %}
              {% set curCatId = '' %}
             {% if currentCategory%}
     			{% set curCatId = currentCategory.id %}
@@ -23,6 +24,7 @@
             <i class="fa fa-folder"></i>        
              {{ 'New category'|trans({},'document') }}
             </a>
+            {% endif %}
   		</h1>
 {% endblock %}
 
