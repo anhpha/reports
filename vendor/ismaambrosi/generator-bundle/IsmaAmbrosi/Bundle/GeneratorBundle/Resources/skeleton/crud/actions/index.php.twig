@@ -1,0 +1,28 @@
+
+    /**
+     * Lists all {{ document }} documents.
+     *
+{% if 'annotation' == format %}
+     * @Route("/", name="{{ route_name_prefix }}")
+     *
+     * @return array
+{% else %}
+     * @return \Symfony\Component\HttpFoundation\Response
+{% endif %}
+     */
+    public function indexAction()
+    {
+        $dm = $this->getDocumentManager();
+
+        $documents = $dm->getRepository('{{ bundle }}:{{ document }}')->findAll();
+        
+        $deleteForms = array();
+        
+        foreach ($documents as $document) {
+            $deleteForms[$document->getId()] = $this->createDeleteForm($document->getId())->createView();
+        }
+
+        return $this->render(
+        '{{ bundle }}:{{ document|replace({'\\': '/'}) }}:index.html.twig', 
+        array('documents' => $documents,'deleteForms'=>$deleteForms));
+    }

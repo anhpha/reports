@@ -1,0 +1,39 @@
+{% block extends %}
+{{ "{% extends 'CPSEAPIProjectBundle::layout.html.twig' %}" }}
+{% endblock extends %}
+
+
+
+{{ "{% block title %} {{ '" }}{{ document }}{{ " creation'|trans({},'" }}{{ document|lower }}{{ "') }}{% endblock %}" }}
+
+{{ " {% block page_header_title %} {{ '" }}{{ document }}{{ " creation'|trans({},'" }}{{ document|lower }}{{ "') }}{% endblock %}" }}
+
+{{ "{% block page_data %}" }}
+
+<div class="col-md-12">
+    <div class="col-md-6">
+        <form action="{{ "{{ path('"~ route_name_prefix ~"_create') }}" }}" method="post" {{ "{{ form_enctype(form) }}" }}>
+            {{"{{ form_errors(form) }}"}}
+            	{% for field, meta in fields %}
+            	{% if field != 'id' %}
+            		<div class="form-group">
+                        {{ "{% set " }}{{ field }}{{ "_label %}{{ form." }}{{ field }}{{ ".vars.name|capitalize|trans({},'" }}{{ document|lower }}{{ "') }} {% endset %}"}}
+                        {{"{{ form_label(form." }}{{ field }}{{ ","}}{{ field }}{{ "_label) }}"}}
+                        {{"{{ form_widget(form." }}{{ field }}{{ ", {'attr':{'class':'form-control'}}) }}"}}
+                        {{"{{ form_errors(form." }}{{ field }}{{ ") }}"}}
+                    </div>
+                {% endif %}
+            	{% endfor %}
+            	{{ "{{ form_rest(form) }}" }}
+            <p>
+                <button type="submit" class="btn btn-success pull-right">
+                	<i class="glyphicon glyphicon-edit" aria-hidden="true"></i>        
+                    {{ " {{ 'Add'|trans({},'common') }}" }}
+                </button>
+            </p>
+        </form>
+    </div>
+</div>
+{% set hide_edit, hide_delete = true, true %}
+{% include 'views/others/record_actions.html.twig' %}
+{{"{% endblock %}"}}

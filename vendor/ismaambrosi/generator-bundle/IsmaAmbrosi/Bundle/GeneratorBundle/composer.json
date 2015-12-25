@@ -1,0 +1,27 @@
+{
+    "name": "ismaambrosi/generator-bundle",
+    "description": "Generates Symfony2 documents, forms and CRUD",
+    "keywords": ["mongodb", "symfony"],
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ismael Ambrosi",
+            "email": "ismaambrosi@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3",
+        "sensio/generator-bundle": "~2.5",
+        "doctrine/mongodb-odm": "1.0.*@dev"
+    },
+    "require-dev": {
+        "twig/twig": ">=1.4,<2.0-dev",
+        "phpunit/phpunit": "~4.2"
+    },
+    "autoload": {
+        "psr-0": { "IsmaAmbrosi\\Bundle\\GeneratorBundle": "" }
+    },
+    "target-dir": "IsmaAmbrosi/Bundle/GeneratorBundle",
+    "minimum-stability": "dev"
+}

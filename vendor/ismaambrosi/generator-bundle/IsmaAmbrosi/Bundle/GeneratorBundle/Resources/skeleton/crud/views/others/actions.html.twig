@@ -1,0 +1,23 @@
+
+
+                {%- for action in record_actions %}
+                		{% if action=='delete' %}
+                			<form class="delete-form" action="{{ "{{ path('"~ route_name_prefix ~"_"~ action ~"', { 'id': document.id }) }}" }}" method="post">
+                               {{ "{{ form_widget(deleteForms[document.id],{'attr':{'class':'delete-form'}}) }}" }}
+                                <button type="submit" class="btn btn-danger">
+                            	<i class="glyphicon glyphicon-remove" aria-hidden="true"></i>
+                            	{{ " {{ 'Delete'|trans({},'common') }}" }}
+                            	</button>
+                            </form>
+                		{% else %}
+
+                        <a class="btn btn-info" href="{{ "{{ path('"~ route_name_prefix ~"_"~ action ~"', { 'id': document.id }) }}" }}">
+                        	{% if action=='edit' %}
+                				<i class="glyphicon glyphicon-edit" aria-hidden="true"></i>
+                			{% endif %}
+                            {{ " {{ 'Edit'|trans({},'common') }}" }}
+                        </a>
+                        {% endif %}
+
+                {%- endfor %}
+

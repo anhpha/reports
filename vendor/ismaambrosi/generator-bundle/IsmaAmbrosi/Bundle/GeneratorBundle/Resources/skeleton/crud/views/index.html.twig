@@ -1,0 +1,67 @@
+{% block extends %}
+{{ "{% extends 'CPSEAPIProjectBundle::layout.html.twig' %}" }}
+{% endblock extends %}
+
+
+
+{{ "{% block title %} {{ '" }}{{ document }}{{ " list'|trans({},'" }}{{ document|lower }}{{ "') }}{% endblock %}" }}
+
+{{ " {% block page_header_title %} {{ '" }}{{ document }}{{ " list'|trans({},'" }}{{ document|lower }}{{ "') }}{% endblock %}" }}
+
+{{ "{% block page_data %}" }}
+
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+        {%- for field, metadata in fields %}
+			{% if field != 'id' %}
+            	<th>{{ "{{'" }}{{ field|capitalize }}{{ "'|trans({},'" }}{{ document|lower }}{{ "') }}" }}</th>
+			{% endif %}
+        {%- endfor %}
+
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {{ '{% for document in documents %}' }}
+        <tr>
+
+    {%- for field, metadata in fields %}
+    	{% if field =='id' %}
+    	
+        {%- elseif field == 'name' and ('show' in actions) %}
+
+            <td><a href="{{ "{{ path('"~ route_name_prefix ~"_show', { 'id': document.id }) }}" }}">{{ '{{ document.'~ field|replace({'_': ''}) ~' }}' }}</a></td>
+
+        {%- elseif metadata.type in ['date', 'datetime'] %}
+
+            <td>{{ '{% if document.'~ field|replace({'_': ''}) ~' %}{{ document.'~ field|replace({'_': ''}) ~'|date(\'Y-m-d H:i:s\') }}{% endif %}' }}</td>
+
+        {%- else %}
+
+            <td>{{ '{{ document.'~ field|replace({'_': ''}) ~' }}' }}</td>
+
+        {%- endif %}
+
+        {%- if loop.last %}
+
+            <td>
+                {%- include "views/others/actions.html.twig" %}
+            </td>
+
+        {%- endif %}
+    {%- endfor %}
+
+        </tr>
+    {{ '{% endfor %}' }}
+    </tbody>
+</table>
+
+{% if 'new' in actions %}
+<div><a class="btn btn-success" href="{{"{{ path('"~ route_name_prefix ~"_new') }}" }}">
+    <i class="glyphicon glyphicon-edit" aria-hidden="true"></i>        
+    {{ " {{ 'New'|trans({},'common') }}" }}
+        </a></div>
+{% endif %}
+{{"{% endblock %}"}}
